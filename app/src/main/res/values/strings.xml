@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">YuanJin</string>
+
+    <string name="image_contentDescription">image</string>
 </resources>

@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import net.yuanjin.R;
 
@@ -32,32 +34,37 @@ public class HomeActivity extends Activity {
 
     private void initView() {
         tabhost = (GridView) findViewById(R.id.gridview_tabhost);
+        tabHostAdapter = new TabHostAdapter();
 
-        initTabHost();
-
+        homeTabList = initTabHost();
+        tabhost.setNumColumns(homeTabList.size());
+        tabhost.setAdapter(tabHostAdapter);
     }
 
 
     /**
      * 初始化底部标题栏
      */
-    private void initTabHost() {
-        homeTabList = new ArrayList<>();
-        //tabHostAdapter = new ta
+    private List<HomeTab> initTabHost() {
+
+        List<HomeTab>  list = new ArrayList<>();
+
         HomeTab messageTab = new HomeTab(R.mipmap.tab_message,R.mipmap.tab_message_p,"消息");
         HomeTab officeTab = new HomeTab(R.mipmap.tab_office,R.mipmap.tab_office_p,"办公");
         HomeTab crmTab = new HomeTab(R.mipmap.tab_crm,R.mipmap.tab_crm_p,"CRM");
         HomeTab myTab = new HomeTab(R.mipmap.tab_crmmyself,R.mipmap.tab_crmmyself_p,"我");
+        HomeTab Tab = new HomeTab(R.mipmap.tab_crmmyself,R.mipmap.tab_crmmyself_p,"哈哈");
+        HomeTab haha1 = new HomeTab(R.mipmap.tab_crmmyself,R.mipmap.tab_crmmyself_p,"我");
+        HomeTab haha2 = new HomeTab(R.mipmap.tab_crmmyself,R.mipmap.tab_crmmyself_p,"哈哈");
 
-        homeTabList.add(messageTab);
-        homeTabList.add(officeTab);
-        homeTabList.add(crmTab);
-        homeTabList.add(myTab);
-
-
-
-
-
+        list.add(messageTab);
+        list.add(officeTab);
+        list.add(crmTab);
+        list.add(myTab);
+        list.add(Tab);
+        list.add(haha1);
+        list.add(haha2);
+        return list;
     }
 
 
@@ -97,13 +104,42 @@ public class HomeActivity extends Activity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-
+            TabViewHolder viewHolder ;
             if (convertView==null){
-//                convertView = getLayoutInflater().inflate();
+                convertView = getLayoutInflater().inflate(R.layout.item_home_tab,null);
+                viewHolder = new TabViewHolder();
+                viewHolder.initView(convertView);
+                convertView.setTag(viewHolder);
             }else{
-
+                viewHolder = (TabViewHolder) convertView.getTag();
             }
-            return null;
+
+            viewHolder.setValue(homeTabList.get(position));
+            return convertView;
+        }
+
+        class TabViewHolder{
+
+            private TextView tabTitle;
+            private ImageView tabIcon;
+            private ImageView imgPoint;
+
+            /**
+             * viewholder 初始化
+             * @param convertView
+             */
+            public void initView(View convertView){
+                this.tabTitle  = (TextView) convertView.findViewById(R.id.home_tab_title);
+                this.tabIcon = (ImageView)convertView.findViewById(R.id.home_tab_icon);
+                this.imgPoint = (ImageView)convertView.findViewById(R.id.home_tab_count_image);
+            }
+
+            public void setValue(HomeTab value){
+                this.tabTitle.setText(value.title);
+                this.tabIcon.setImageResource(value.iconResource);
+                this.imgPoint.setVisibility(View.INVISIBLE);
+            }
+
         }
     }
 }
