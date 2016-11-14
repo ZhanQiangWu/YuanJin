@@ -2,7 +2,9 @@ package net.yuanjin.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,6 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.yuanjin.R;
+import net.yuanjin.ui.fragment.CRMFragment;
+import net.yuanjin.ui.fragment.MessageFragment;
+import net.yuanjin.ui.fragment.MySelfFragment;
+import net.yuanjin.ui.fragment.OfficeFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +28,10 @@ public class HomeActivity extends Activity {
 
     private GridView tabhost;
     private List<HomeTab> homeTabList;
+    private List<Fragment> fragmentList;
     private TabHostAdapter tabHostAdapter;
+    private HomeFragmentPagerAdapter pagerAdapter;
+    private HomeTab lastTab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +48,27 @@ public class HomeActivity extends Activity {
         homeTabList = initTabHost();
         tabhost.setNumColumns(homeTabList.size());
         tabhost.setAdapter(tabHostAdapter);
+
+        fragmentList = initFragMent();
+        pagerAdapter = new HomeFragmentPagerAdapter(getFragmentManager());
+    }
+
+    /**
+     * 初始化Fragments
+     * @return
+     */
+    private List<Fragment> initFragMent() {
+        List<Fragment> list = new ArrayList<>();
+        MessageFragment messageFragment = new MessageFragment();
+        OfficeFragment officeFragment = new OfficeFragment();
+        CRMFragment crmFragment = new CRMFragment();
+        MySelfFragment mySelfFragment = new MySelfFragment();
+
+        list.add(messageFragment);
+        list.add(officeFragment);
+        list.add(crmFragment);
+        list.add(mySelfFragment);
+        return list;
     }
 
 
@@ -49,21 +79,16 @@ public class HomeActivity extends Activity {
 
         List<HomeTab>  list = new ArrayList<>();
 
-        HomeTab messageTab = new HomeTab(R.mipmap.tab_message,R.mipmap.tab_message_p,"消息");
-        HomeTab officeTab = new HomeTab(R.mipmap.tab_office,R.mipmap.tab_office_p,"办公");
-        HomeTab crmTab = new HomeTab(R.mipmap.tab_crm,R.mipmap.tab_crm_p,"CRM");
-        HomeTab myTab = new HomeTab(R.mipmap.tab_crmmyself,R.mipmap.tab_crmmyself_p,"我");
-        HomeTab Tab = new HomeTab(R.mipmap.tab_crmmyself,R.mipmap.tab_crmmyself_p,"哈哈");
-        HomeTab haha1 = new HomeTab(R.mipmap.tab_crmmyself,R.mipmap.tab_crmmyself_p,"我");
-        HomeTab haha2 = new HomeTab(R.mipmap.tab_crmmyself,R.mipmap.tab_crmmyself_p,"哈哈");
+        HomeTab messageTab = new HomeTab(R.mipmap.tab_message,R.mipmap.tab_message_p,"消息",true);
+        HomeTab officeTab = new HomeTab(R.mipmap.tab_office,R.mipmap.tab_office_p,"办公",false);
+        HomeTab crmTab = new HomeTab(R.mipmap.tab_crm,R.mipmap.tab_crm_p,"CRM",false);
+        HomeTab myTab = new HomeTab(R.mipmap.tab_crmmyself,R.mipmap.tab_crmmyself_p,"我",false);
 
         list.add(messageTab);
         list.add(officeTab);
         list.add(crmTab);
         list.add(myTab);
-        list.add(Tab);
-        list.add(haha1);
-        list.add(haha2);
+        lastTab = messageTab;
         return list;
     }
 
@@ -73,19 +98,35 @@ public class HomeActivity extends Activity {
         private int iconResource;
         private int selectedResource;
         private String title;
+        private boolean isSelected;
 
-        HomeTab( int iconResource,int selectedResource,String title){
+        HomeTab( int iconResource,int selectedResource,String title,boolean isSelected){
             this.iconResource = iconResource;
             this.selectedResource = selectedResource;
             this.title = title;
+            this.isSelected = isSelected;
         }
+
+        /**
+         * 功能描述：tab选中
+         */
+        public void onSelect(){
+            this.isSelected = true;
+        }
+
+        /**
+         * 功能描述：tab未选中
+         */
+        public void unSelect(){
+            this.isSelected = false;
+        }
+
     }
 
     /**
      * Tab标签Adapter
      */
     class TabHostAdapter extends BaseAdapter{
-
 
         @Override
         public int getCount() {
@@ -103,7 +144,7 @@ public class HomeActivity extends Activity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             TabViewHolder viewHolder ;
             if (convertView==null){
                 convertView = getLayoutInflater().inflate(R.layout.item_home_tab,null);
@@ -115,6 +156,16 @@ public class HomeActivity extends Activity {
             }
 
             viewHolder.setValue(homeTabList.get(position));
+            //点击事件监听
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    homeTabList.get(position).onSelect();
+                    lastTab.unSelect();
+                    lastTab = homeTabList.get(position);
+                    tabHostAdapter.notifyDataSetChanged();
+                }
+            });
             return convertView;
         }
 
@@ -136,10 +187,35 @@ public class HomeActivity extends Activity {
 
             public void setValue(HomeTab value){
                 this.tabTitle.setText(value.title);
-                this.tabIcon.setImageResource(value.iconResource);
                 this.imgPoint.setVisibility(View.INVISIBLE);
+
+                if (value.isSelected){
+                    this.tabIcon.setImageResource(value.selectedResource);
+                }else{
+                    this.tabIcon.setImageResource(value.iconResource);
+                }
             }
 
+        }
+    }
+
+    /**
+     * Fragment viewpagerAdapter
+     */
+    class HomeFragmentPagerAdapter extends FragmentPagerAdapter{
+
+        public HomeFragmentPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return 0;
         }
     }
 }
