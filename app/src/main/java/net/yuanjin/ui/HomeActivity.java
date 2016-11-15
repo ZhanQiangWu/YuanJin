@@ -1,10 +1,10 @@
 package net.yuanjin.ui;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -17,14 +17,15 @@ import net.yuanjin.ui.fragment.CRMFragment;
 import net.yuanjin.ui.fragment.MessageFragment;
 import net.yuanjin.ui.fragment.MySelfFragment;
 import net.yuanjin.ui.fragment.OfficeFragment;
+import net.yuanjin.widget.CustomViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Home主页
  */
-public class HomeActivity extends Activity {
+public class HomeActivity extends BasicActivity {
 
     private GridView tabhost;
     private List<HomeTab> homeTabList;
@@ -32,6 +33,7 @@ public class HomeActivity extends Activity {
     private TabHostAdapter tabHostAdapter;
     private HomeFragmentPagerAdapter pagerAdapter;
     private HomeTab lastTab;
+    private CustomViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,13 @@ public class HomeActivity extends Activity {
         tabhost.setAdapter(tabHostAdapter);
 
         fragmentList = initFragMent();
-        pagerAdapter = new HomeFragmentPagerAdapter(getFragmentManager());
+        pagerAdapter = new HomeFragmentPagerAdapter(getSupportFragmentManager());
+        viewPager = (CustomViewPager) findViewById(R.id.viewpager_hometab);
+        //viewPager.setDisableShuffle(true);//禁止滑动
+        viewPager.setOffscreenPageLimit(4);
+        viewPager.addOnPageChangeListener(onPageChangeListener);
+        viewPager.setAdapter(pagerAdapter);
+
     }
 
     /**
@@ -156,6 +164,7 @@ public class HomeActivity extends Activity {
             }
 
             viewHolder.setValue(homeTabList.get(position));
+
             //点击事件监听
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -164,6 +173,7 @@ public class HomeActivity extends Activity {
                     lastTab.unSelect();
                     lastTab = homeTabList.get(position);
                     tabHostAdapter.notifyDataSetChanged();
+                    viewPager.setCurrentItem(position);
                 }
             });
             return convertView;
@@ -210,12 +220,36 @@ public class HomeActivity extends Activity {
 
         @Override
         public Fragment getItem(int position) {
-            return null;
+            return fragmentList.get(position);
         }
 
         @Override
         public int getCount() {
-            return 0;
+            return fragmentList.size();
         }
+
     }
+
+    /**
+     * ViewPager 动作监听
+     */
+    ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            homeTabList.get(position).onSelect();
+            lastTab.unSelect();
+            lastTab = homeTabList.get(position);
+            tabHostAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+    };
 }

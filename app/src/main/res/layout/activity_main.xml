@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     >
 
+    <net.yuanjin.widget.CustomViewPager
+        android:id="@+id/viewpager_hometab"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/gridview_tabhost"
+        >
+
+    </net.yuanjin.widget.CustomViewPager>
+
 
     <GridView
         android:id="@+id/gridview_tabhost"
