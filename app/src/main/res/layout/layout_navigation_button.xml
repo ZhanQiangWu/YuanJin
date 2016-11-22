@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/navigation_btn_root"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/navigation_btn_img"
+        android:layout_width="20dip"
+        android:layout_height="20dip"
+        android:src="@mipmap/actionbar_add"/>
+
+    <TextView
+        android:id="@+id/navigation_btn_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_sumit"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        />
+
+</LinearLayout>

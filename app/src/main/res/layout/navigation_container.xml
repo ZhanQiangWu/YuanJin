@@ -8,13 +8,37 @@
 
     <LinearLayout
         android:id="@+id/navigation_layout_left"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_width="50dp"
+        android:layout_width="80dp"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:orientation="horizontal"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <net.yuanjin.widget.navigation.NavigationBackButton
+            android:id="@+id/navigation_btn_left"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dip"
+            android:orientation="horizontal"
+            >
+
+        </net.yuanjin.widget.navigation.NavigationBackButton>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/navigation_layout_center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="85dp"
+        android:layout_marginRight="85dp"
+        android:orientation="horizontal"
+        android:layout_centerInParent="true"
+        android:gravity="center"
         >
 
     </LinearLayout>
@@ -33,5 +57,7 @@
         android:orientation="horizontal">
 
     </LinearLayout>
+
+
 
 </RelativeLayout>
