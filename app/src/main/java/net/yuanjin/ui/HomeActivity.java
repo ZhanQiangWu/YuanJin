@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -48,13 +49,16 @@ public class HomeActivity extends BasicActivity {
         tabHostAdapter = new TabHostAdapter();
 
         homeTabList = initTabHost();
+        lastTab = homeTabList.get(0);
+        tabHostAdapter.setHomeTabList(homeTabList);
         tabhost.setNumColumns(homeTabList.size());
+        tabhost.setOnItemClickListener(onItemClickListener);
         tabhost.setAdapter(tabHostAdapter);
 
         fragmentList = initFragMent();
         pagerAdapter = new HomeFragmentPagerAdapter(getSupportFragmentManager());
         viewPager = (CustomViewPager) findViewById(R.id.viewpager_hometab);
-        //viewPager.setDisableShuffle(true);//禁止滑动
+        viewPager.setDisableShuffle(true);//禁止滑动
         viewPager.setOffscreenPageLimit(4);
         viewPager.addOnPageChangeListener(onPageChangeListener);
         viewPager.setAdapter(pagerAdapter);
@@ -87,45 +91,46 @@ public class HomeActivity extends BasicActivity {
 
         List<HomeTab>  list = new ArrayList<>();
 
-        HomeTab messageTab = new HomeTab(R.mipmap.tab_message,R.mipmap.tab_message_p,"消息",true);
-        HomeTab officeTab = new HomeTab(R.mipmap.tab_office,R.mipmap.tab_office_p,"办公",false);
-        HomeTab crmTab = new HomeTab(R.mipmap.tab_crm,R.mipmap.tab_crm_p,"CRM",false);
-        HomeTab myTab = new HomeTab(R.mipmap.tab_crmmyself,R.mipmap.tab_crmmyself_p,"我",false);
+        HomeTab messageTab = new HomeTab(R.mipmap.tab_message,R.mipmap.tab_message_p,"消息",true,0);
+        HomeTab officeTab = new HomeTab(R.mipmap.tab_office,R.mipmap.tab_office_p,"办公",false,1);
+        HomeTab crmTab = new HomeTab(R.mipmap.tab_crm,R.mipmap.tab_crm_p,"CRM",false,2);
+        HomeTab myTab = new HomeTab(R.mipmap.tab_crmmyself,R.mipmap.tab_crmmyself_p,"我",false,3);
 
         list.add(messageTab);
         list.add(officeTab);
         list.add(crmTab);
         list.add(myTab);
-        lastTab = messageTab;
         return list;
     }
 
 
-    class HomeTab{
+    private class HomeTab{
 
+        private int index;
         private int iconResource;
         private int selectedResource;
         private String title;
         private boolean isSelected;
 
-        HomeTab( int iconResource,int selectedResource,String title,boolean isSelected){
+        HomeTab( int iconResource,int selectedResource,String title,boolean isSelected,int index){
             this.iconResource = iconResource;
             this.selectedResource = selectedResource;
             this.title = title;
             this.isSelected = isSelected;
+            this.index = index;
         }
 
         /**
          * 功能描述：tab选中
          */
-        public void onSelect(){
+        private void onSelect(){
             this.isSelected = true;
         }
 
         /**
          * 功能描述：tab未选中
          */
-        public void unSelect(){
+        private void unSelect(){
             this.isSelected = false;
         }
 
@@ -135,6 +140,11 @@ public class HomeActivity extends BasicActivity {
      * Tab标签Adapter
      */
     class TabHostAdapter extends BaseAdapter{
+        private List<HomeTab> homeTabList;
+
+        private void setHomeTabList(List<HomeTab> list){
+            this.homeTabList = list;
+        }
 
         @Override
         public int getCount() {
@@ -164,18 +174,6 @@ public class HomeActivity extends BasicActivity {
             }
 
             viewHolder.setValue(homeTabList.get(position));
-
-            //点击事件监听
-            convertView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    homeTabList.get(position).onSelect();
-                    lastTab.unSelect();
-                    lastTab = homeTabList.get(position);
-                    tabHostAdapter.notifyDataSetChanged();
-                    viewPager.setCurrentItem(position);
-                }
-            });
             return convertView;
         }
 
@@ -189,13 +187,13 @@ public class HomeActivity extends BasicActivity {
              * viewholder 初始化
              * @param convertView
              */
-            public void initView(View convertView){
+            private void initView(View convertView){
                 this.tabTitle  = (TextView) convertView.findViewById(R.id.home_tab_title);
                 this.tabIcon = (ImageView)convertView.findViewById(R.id.home_tab_icon);
                 this.imgPoint = (ImageView)convertView.findViewById(R.id.home_tab_count_image);
             }
 
-            public void setValue(HomeTab value){
+            private void setValue(HomeTab value){
                 this.tabTitle.setText(value.title);
                 this.imgPoint.setVisibility(View.INVISIBLE);
 
@@ -212,9 +210,9 @@ public class HomeActivity extends BasicActivity {
     /**
      * Fragment viewpagerAdapter
      */
-    class HomeFragmentPagerAdapter extends FragmentPagerAdapter{
+    private class HomeFragmentPagerAdapter extends FragmentPagerAdapter{
 
-        public HomeFragmentPagerAdapter(FragmentManager fm) {
+        private HomeFragmentPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -233,7 +231,7 @@ public class HomeActivity extends BasicActivity {
     /**
      * ViewPager 动作监听
      */
-    ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
+    private ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -241,6 +239,7 @@ public class HomeActivity extends BasicActivity {
 
         @Override
         public void onPageSelected(int position) {
+            if (lastTab.index == position) return;
             homeTabList.get(position).onSelect();
             lastTab.unSelect();
             lastTab = homeTabList.get(position);
@@ -250,6 +249,18 @@ public class HomeActivity extends BasicActivity {
         @Override
         public void onPageScrollStateChanged(int state) {
 
+        }
+    };
+
+    private GridView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            homeTabList.get(position).onSelect();
+            lastTab.unSelect();
+            lastTab = homeTabList.get(position);
+            tabHostAdapter.setHomeTabList(homeTabList);
+            tabhost.setAdapter(tabHostAdapter);
+            viewPager.setCurrentItem(position);
         }
     };
 }
