@@ -8,4 +8,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="YuanJinTheme" parent="Base.V7.Theme.AppCompat.Light">
+        <item name="actionBarStyle">@style/YuanJinActionBarBaseStyle</item>
+    </style>
+
+    <style name="YuanJinActionBarBaseStyle" parent="Base.Widget.AppCompat.ActionBar">
+        <item name="contentInsetStart">0dp</item>
+        <item name="contentInsetEnd">0dp</item>
+        <item name="height">50dp</item>
+    </style>
+
 </resources>
