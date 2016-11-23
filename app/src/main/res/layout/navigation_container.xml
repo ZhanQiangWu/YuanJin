@@ -56,7 +56,36 @@
         android:visibility="gone"
         android:orientation="horizontal">
 
+        <net.yuanjin.widget.navigation.NavigationButton
+            android:id="@+id/navigation_btn_right2"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal" />
+
+        <net.yuanjin.widget.navigation.NavigationButton
+            android:id="@+id/navigation_btn_right"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal" />
+
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/navigation_layout_customright"
+        android:layout_width="80dip"
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical|right"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 
 

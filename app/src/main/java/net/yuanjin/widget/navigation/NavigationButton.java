@@ -1,8 +1,10 @@
 package net.yuanjin.widget.navigation;
 
 import android.content.Context;
+import android.opengl.Visibility;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -43,6 +45,19 @@ public class NavigationButton extends LinearLayout{
 
     protected void setImageResource(int resource){
         this.imageView.setImageResource(resource);
+    }
+
+    protected void hide(){
+        hide(false);
+    }
+
+    protected void hide(boolean isGone){
+        if (isGone){
+            this.setVisibility(View.GONE);
+        }else{
+            this.setVisibility(View.INVISIBLE);
+        }
+        this.setClickable(false);
     }
 
 }
