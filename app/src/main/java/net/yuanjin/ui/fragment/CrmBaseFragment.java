@@ -8,4 +8,16 @@ import android.support.v4.app.Fragment;
 
 public class CrmBaseFragment extends Fragment{
 
+    public CrmBaseFragment(){
+        super();
+    }
+
+
+    /**
+     * 初始化标题栏
+     */
+    public void initFragmentActionBar(){
+
+    }
+
 }

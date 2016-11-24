@@ -63,4 +63,8 @@ public abstract class NavigationContainer extends LinearLayout{
     }
 
     public abstract View setCenterView();
+
+    public NavigationButton getLeftButton(){
+        return btn_left;
+    }
 }
