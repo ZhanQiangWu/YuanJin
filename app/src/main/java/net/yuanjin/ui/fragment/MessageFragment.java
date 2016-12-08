@@ -14,7 +14,7 @@ import net.yuanjin.widget.navigation.NavigationText;
  */
 
 public class MessageFragment extends CrmBaseFragment{
-
+    //
     private NavigationText navigation;
 
     @Override
