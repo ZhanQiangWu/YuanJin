@@ -26,6 +26,7 @@ public class LoginMVPActivity extends BasicActivity implements ILoginView, View.
     ILoginPresenter loginPresenter;
     private ProgressBar progressBar;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
