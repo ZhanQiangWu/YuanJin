@@ -15,16 +15,20 @@ public class UserModel implements IUser{
 
     @Override
     public String getName() {
-        return null;
+        return name;
     }
 
     @Override
     public String getPasswd() {
-        return null;
+        return passwd;
     }
 
     @Override
-    public int checkUserValidity(String name, String passwd) {
-        return 0;
+    public boolean checkUserValidity(String name, String passwd) {
+        if (name==null || passwd==null || !name.equals(getName()) || !passwd.equals(getPasswd())){
+            return false;
+        }else {
+            return true;
+        }
     }
 }

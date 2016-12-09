@@ -10,6 +10,6 @@ public interface IUser {
 
     String getPasswd();
 
-    int checkUserValidity(String name, String passwd);
+    boolean checkUserValidity(String name, String passwd);
 
 }
