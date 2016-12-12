@@ -54,6 +54,7 @@ public abstract class NavigationContainer extends LinearLayout{
             }
         });
         btn_right.hide();
+        btn_right2.hide();
         View centerView = setCenterView();
         if (centerView!=null){
             layout_center.removeAllViews();
@@ -67,4 +68,53 @@ public abstract class NavigationContainer extends LinearLayout{
     public NavigationButton getLeftButton(){
         return btn_left;
     }
+
+    public NavigationButton getRightButton(){
+        return btn_right;
+    }
+
+    public <T extends NavigationContainer>NavigationContainer setRightButton(int resource,View.OnClickListener listener){
+        layout_right.setVisibility(View.VISIBLE);
+        layout_right_custom.setVisibility(View.GONE);
+        btn_right.show();
+        btn_right.setButton(resource,listener);
+        return this;
+    }
+
+    public <T extends NavigationContainer> NavigationContainer setRightButton(String text,View.OnClickListener listener){
+        layout_right.setVisibility(View.VISIBLE);
+        layout_right_custom.setVisibility(View.GONE);
+        btn_right.show();
+        btn_right.setButton(text, listener);
+        return this;
+    }
+
+    public <T extends NavigationContainer> NavigationContainer setRightButton2(String text,View.OnClickListener listener){
+        layout_right.setVisibility(View.VISIBLE);
+        layout_right_custom.setVisibility(View.GONE);
+        btn_right2.show();
+        btn_right2.setButton(text, listener);
+        return this;
+    }
+
+    public <T extends NavigationContainer> NavigationContainer setRightButton2(int resource,View.OnClickListener listener){
+        layout_right.setVisibility(View.VISIBLE);
+        layout_right_custom.setVisibility(View.GONE);
+        btn_right2.show();
+        btn_right2.setButton(resource,listener);
+        return this;
+    }
+
+    public <T extends NavigationContainer> NavigationContainer setCustomRightButton(NavigationButton button){
+        layout_right.setVisibility(View.GONE);
+        layout_right_custom.setVisibility(View.VISIBLE);
+
+        if(button!=null){
+            layout_right_custom.removeAllViews();
+            layout_right_custom.addView(button);
+            button.show();
+        }
+        return this;
+    }
+
 }

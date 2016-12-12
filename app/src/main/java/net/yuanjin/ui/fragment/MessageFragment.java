@@ -27,10 +27,9 @@ public class MessageFragment extends CrmBaseFragment{
     @Override
     public void initFragmentActionBar() {
         if (navigation==null){
-            navigation = new NavigationText(getContext());
-            // TODO: 2016/11/25  
-            navigation.getLeftButton();
-            
+            navigation = new NavigationText(activity).setTitle("消息");
+            navigation.getLeftButton().hide();
         }
+        activity.setNavigation(navigation);
     }
 }

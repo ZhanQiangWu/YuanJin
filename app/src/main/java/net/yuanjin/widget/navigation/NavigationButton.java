@@ -47,17 +47,36 @@ public class NavigationButton extends LinearLayout{
         this.imageView.setImageResource(resource);
     }
 
-    protected void hide(){
+    public void hide(){
         hide(false);
     }
 
-    protected void hide(boolean isGone){
+    public void hide(boolean isGone){
         if (isGone){
             this.setVisibility(View.GONE);
         }else{
             this.setVisibility(View.INVISIBLE);
         }
         this.setClickable(false);
+    }
+
+    public void show(){
+        this.setVisibility(View.VISIBLE);
+        this.setClickable(true);
+    }
+
+    public void setButton(int resource,View.OnClickListener listener){
+        setOnClickListener(listener);
+        textView.setVisibility(View.GONE);
+        imageView.setVisibility(View.VISIBLE);
+        imageView.setImageResource(resource);
+    }
+
+    public void setButton(String text,View.OnClickListener listener){
+        setOnClickListener(listener);
+        textView.setVisibility(View.VISIBLE);
+        imageView.setVisibility(View.GONE);
+        textView.setText(text);
     }
 
 }

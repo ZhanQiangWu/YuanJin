@@ -11,6 +11,7 @@ import android.widget.Button;
 import net.yuanjin.R;
 import net.yuanjin.mvp.login.view.LoginMVPActivity;
 import net.yuanjin.ui.MyTestMainActivity;
+import net.yuanjin.widget.navigation.NavigationText;
 
 /**
  *  Created by WuZhanQiang on 2016/11/14.
@@ -19,6 +20,7 @@ import net.yuanjin.ui.MyTestMainActivity;
 public class MySelfFragment extends CrmBaseFragment{
 
     private Button mytestBtn;
+    private NavigationText navigation;
 
     @Nullable
     @Override
@@ -33,5 +35,16 @@ public class MySelfFragment extends CrmBaseFragment{
             }
         });
         return view;
+    }
+
+    @Override
+    public void initFragmentActionBar() {
+        super.initFragmentActionBar();
+        if (navigation == null){
+            navigation = new NavigationText(activity).setTitle("我");
+            navigation.getRightButton().hide();
+            navigation.getLeftButton().hide();
+        }
+        activity.setNavigation(navigation);
     }
 }

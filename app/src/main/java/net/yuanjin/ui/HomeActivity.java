@@ -1,5 +1,6 @@
 package net.yuanjin.ui;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import net.yuanjin.R;
 import net.yuanjin.ui.fragment.CRMFragment;
+import net.yuanjin.ui.fragment.CrmBaseFragment;
 import net.yuanjin.ui.fragment.MessageFragment;
 import net.yuanjin.ui.fragment.MySelfFragment;
 import net.yuanjin.ui.fragment.OfficeFragment;
@@ -30,7 +32,7 @@ public class HomeActivity extends BasicActivity {
 
     private GridView tabhost;
     private List<HomeTab> homeTabList;
-    private List<Fragment> fragmentList;
+    private List<CrmBaseFragment> fragmentList;
     private TabHostAdapter tabHostAdapter;
     private HomeFragmentPagerAdapter pagerAdapter;
     private HomeTab lastTab;
@@ -40,6 +42,13 @@ public class HomeActivity extends BasicActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //设置actionbar样式
+        if (Build.VERSION.SDK_INT>11){
+            setTheme(R.style.Base_Theme_AppCompat_Light);
+        }else{
+            setTheme(R.style.YuanJinTheme);
+        }
 
         initView();
     }
@@ -58,7 +67,7 @@ public class HomeActivity extends BasicActivity {
         fragmentList = initFragMent();
         pagerAdapter = new HomeFragmentPagerAdapter(getSupportFragmentManager());
         viewPager = (CustomViewPager) findViewById(R.id.viewpager_hometab);
-        viewPager.setDisableShuffle(true);//禁止滑动
+        viewPager.setDisableShuffle(false);//禁止滑动
         viewPager.setOffscreenPageLimit(4);
         viewPager.addOnPageChangeListener(onPageChangeListener);
         viewPager.setAdapter(pagerAdapter);
@@ -69,8 +78,8 @@ public class HomeActivity extends BasicActivity {
      * 初始化Fragments
      * @return
      */
-    private List<Fragment> initFragMent() {
-        List<Fragment> list = new ArrayList<>();
+    private List<CrmBaseFragment> initFragMent() {
+        List<CrmBaseFragment> list = new ArrayList<>();
         MessageFragment messageFragment = new MessageFragment();
         OfficeFragment officeFragment = new OfficeFragment();
         CRMFragment crmFragment = new CRMFragment();
@@ -241,6 +250,7 @@ public class HomeActivity extends BasicActivity {
         public void onPageSelected(int position) {
             if (lastTab.index == position) return;
             homeTabList.get(position).onSelect();
+            fragmentList.get(position).initFragmentActionBar();//初始化标题栏
             lastTab.unSelect();
             lastTab = homeTabList.get(position);
             tabHostAdapter.notifyDataSetChanged();
@@ -255,7 +265,11 @@ public class HomeActivity extends BasicActivity {
     private GridView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            if (lastTab.index == position){
+                return;
+            }
             homeTabList.get(position).onSelect();
+            fragmentList.get(position).initFragmentActionBar();//初始化标题栏
             lastTab.unSelect();
             lastTab = homeTabList.get(position);
             tabHostAdapter.setHomeTabList(homeTabList);
