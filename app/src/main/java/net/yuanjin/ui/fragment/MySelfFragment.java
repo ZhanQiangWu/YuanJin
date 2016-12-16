@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import net.yuanjin.R;
 import net.yuanjin.mvp.login.view.LoginMVPActivity;
+import net.yuanjin.test.recycleviewdemo.RecyclerViewActivity;
 import net.yuanjin.ui.MyTestMainActivity;
 import net.yuanjin.widget.navigation.NavigationText;
 
@@ -30,7 +31,8 @@ public class MySelfFragment extends CrmBaseFragment{
         mytestBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), MyTestMainActivity.class);
+//                Intent intent = new Intent(getContext(), MyTestMainActivity.class);
+                Intent intent = new Intent(getContext(), RecyclerViewActivity.class);
                 getActivity().startActivity(intent);
             }
         });
