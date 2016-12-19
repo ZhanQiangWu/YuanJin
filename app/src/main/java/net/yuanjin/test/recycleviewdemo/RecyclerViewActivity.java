@@ -48,7 +48,7 @@ public class RecyclerViewActivity extends BasicActivity{
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new RecyclerViewAdapter());
-        recyclerView.addItemDecoration();
+        //recyclerView.addItemDecoration();
 
     }
 
