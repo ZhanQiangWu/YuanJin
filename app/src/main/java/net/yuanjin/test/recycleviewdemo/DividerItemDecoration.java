@@ -61,17 +61,34 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration{
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
             final int top = child.getBottom()+params.bottomMargin;
             final int bottom = top + mDivider.getIntrinsicHeight();
-
+            mDivider.setBounds(left,top,right,bottom);
+            mDivider.draw(c);
         }
 
     }
 
     public void drawHorizontal(Canvas c,RecyclerView parent){
+        final int top = parent.getPaddingTop();
+        final int bottom = parent.getHeight() - parent.getPaddingBottom();
 
+        final int childCount = parent.getChildCount();
+        for (int i=0;i<childCount;i++){
+            final View child = parent.getChildAt(i);
+            final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
+            final int left = child.getRight() + params.rightMargin;
+            // TODO: 2016/12/20 width 与 height 未明白
+            final int right = left + mDivider.getIntrinsicWidth();
+            mDivider.setBounds(left,top,right,bottom);
+            mDivider.draw(c);
+        }
     }
 
     @Override
     public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent) {
-        super.getItemOffsets(outRect, itemPosition, parent);
+        if (mOrientation == VERTICAL_LIST){
+            outRect.set(0,0,0,mDivider.getIntrinsicHeight());
+        }else {
+            outRect.set(0,0,mDivider.getIntrinsicWidth(),0);
+        }
     }
 }
