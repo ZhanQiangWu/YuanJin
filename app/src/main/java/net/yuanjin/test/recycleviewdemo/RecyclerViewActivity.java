@@ -70,8 +70,8 @@ public class RecyclerViewActivity extends BasicActivity{
         recyclerView.addItemDecoration(new DividerGridItemDecoration(this));
 
         //动画配置
-        //recyclerView.setItemAnimator(new DefaultItemAnimator());//自带默认动画
-        recyclerView.setItemAnimator(new SlideInUpAnimator());
+        recyclerView.setItemAnimator(new DefaultItemAnimator());//自带默认动画
+        //recyclerView.setItemAnimator(new SlideInUpAnimator());
         adapter=new RecyclerViewAdapter();
         recyclerView.setAdapter(adapter);
 
@@ -170,11 +170,13 @@ public class RecyclerViewActivity extends BasicActivity{
 
         void addData(int position,String desc){
             mDatas.add(position,desc);
+            heightList.add(position,(int) (Math.random()*300+100));
             notifyItemInserted(position);
         }
 
         void removeData(int position){
             mDatas.remove(position);
+            heightList.remove(position);
             notifyItemRemoved(position);
         }
 
