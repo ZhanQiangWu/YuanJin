@@ -1,4 +1,4 @@
-package net.yuanjin.test.recycleviewdemo;
+package net.yuanjin.mytest.recycleviewdemo;
 
 import android.content.Context;
 import android.content.res.TypedArray;

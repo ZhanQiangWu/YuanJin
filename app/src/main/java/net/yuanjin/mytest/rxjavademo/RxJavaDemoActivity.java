@@ -1,12 +1,9 @@
-package net.yuanjin.test.rxjavademo;
+package net.yuanjin.mytest.rxjavademo;
 
-import android.database.Observable;
 import android.os.Bundle;
 import android.util.Log;
 
 import net.yuanjin.ui.BasicActivity;
-
-import java.util.Observer;
 
 /**
  *  Created by zhan on 2016/12/21.

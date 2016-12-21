@@ -1,32 +1,22 @@
-package net.yuanjin.test.recycleviewdemo;
+package net.yuanjin.mytest.recycleviewdemo;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.OvershootInterpolator;
-import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import net.yuanjin.R;
+import net.yuanjin.mytest.recycleviewdemo.adapter.MultiItemCommonAdapter;
+import net.yuanjin.mytest.recycleviewdemo.base.ViewHolder;
 import net.yuanjin.ui.BasicActivity;
 import net.yuanjin.widget.navigation.NavigationText;
 
-import java.net.InterfaceAddress;
 import java.util.ArrayList;
 import java.util.List;
-
-import jp.wasabeef.recyclerview.animators.ScaleInLeftAnimator;
-import jp.wasabeef.recyclerview.animators.SlideInDownAnimator;
-import jp.wasabeef.recyclerview.animators.SlideInRightAnimator;
-import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 /**
  *  Created by WuZhanQiang on 2016/12/16.
@@ -38,6 +28,9 @@ public class RecyclerViewActivity extends BasicActivity{
     private List<String> mDatas;
     private NavigationText navigation;
     private RecyclerViewAdapter adapter;
+    public static final int RECYCLERVIEW_ITEM_TYPE_1 = 1001;
+    public static final int RECYCLERVIEW_ITEM_TYPE_2 = 1002;
+
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -63,30 +56,89 @@ public class RecyclerViewActivity extends BasicActivity{
         //recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
 
-        //recyclerView.setLayoutManager(new GridLayoutManager(this,14,GridLayoutManager.HORIZONTAL,false));
-        //recyclerView.addItemDecoration(new DividerGridItemDecoration(this));
-
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(4,StaggeredGridLayoutManager.VERTICAL));
+        recyclerView.setLayoutManager(new GridLayoutManager(this,4,GridLayoutManager.VERTICAL,false));
         recyclerView.addItemDecoration(new DividerGridItemDecoration(this));
+
+        //recyclerView.setLayoutManager(new StaggeredGridLayoutManager(4,StaggeredGridLayoutManager.VERTICAL));
+        //recyclerView.addItemDecoration(new DividerGridItemDecoration(this));
 
         //动画配置
         recyclerView.setItemAnimator(new DefaultItemAnimator());//自带默认动画
         //recyclerView.setItemAnimator(new SlideInUpAnimator());
-        adapter=new RecyclerViewAdapter();
-        recyclerView.setAdapter(adapter);
 
-        //item点击监听
-        adapter.setOnItemClickListener(new OnItemClickListener() {
+        //adapter配置
+//        adapter=new RecyclerViewAdapter();
+//        recyclerView.setAdapter(adapter);
+//
+//        //item点击监听
+//        adapter.setOnItemClickListener(new OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//                Toast.makeText(RecyclerViewActivity.this,mDatas.get(position)+" click" ,Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onItemLongClick(View view, int position) {
+//                Toast.makeText(RecyclerViewActivity.this,mDatas.get(position)+" longclick" ,Toast.LENGTH_SHORT).show();
+//                adapter.removeData(position);
+//            }
+//        });
+
+        /**---------------------通用 SingleItemTypeAdapter配置--------**/
+//        recyclerView.setAdapter(new SingleItemTypeAdapter<String>(this,R.layout.item_recycleview2,mDatas) {
+//            @Override
+//            public void convert(ViewHolder viewHolder, final String s) {
+//                viewHolder.setText(R.id.id_recycler_num,s);
+//                viewHolder.setOnClickListener(R.id.id_recycler_num, new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Toast.makeText(RecyclerViewActivity.this,s+" click" ,Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//            }
+//
+//        });
+
+        /**---------------------通用 MultiItemCommonAdapter 配置--------**/
+        recyclerView.setAdapter(new MultiItemCommonAdapter<String>(this, mDatas,
+                new MultiItemCommonAdapter.MultiItemTypeSupport<String>() {
+                    @Override
+                    public int getLayoutId(int itemType) {
+
+                        switch (itemType){
+
+                            case RECYCLERVIEW_ITEM_TYPE_1:
+                                return R.layout.item_recycleview;
+
+                            case RECYCLERVIEW_ITEM_TYPE_2:
+                                return R.layout.item_recycleview2;
+                        }
+                        return -1;
+                    }
+
+                    @Override
+                    public int getItemViewType(int position, String s) {
+                        switch (position%2){
+                            case 0:
+                                return RECYCLERVIEW_ITEM_TYPE_1;
+                            case 1:
+                                return RECYCLERVIEW_ITEM_TYPE_2;
+                        }
+
+                        return 0;
+                    }
+        }) {
             @Override
-            public void onItemClick(View view, int position) {
-                Toast.makeText(RecyclerViewActivity.this,mDatas.get(position)+" click" ,Toast.LENGTH_SHORT).show();
+            public void convert(ViewHolder viewHolder, final String s) {
+                viewHolder.setText(R.id.id_recycler_num,s);
+                viewHolder.setOnClickListener(R.id.id_recycler_num, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(RecyclerViewActivity.this,s+" click" ,Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
-            @Override
-            public void onItemLongClick(View view, int position) {
-                Toast.makeText(RecyclerViewActivity.this,mDatas.get(position)+" longclick" ,Toast.LENGTH_SHORT).show();
-                adapter.removeData(position);
-            }
         });
 
 

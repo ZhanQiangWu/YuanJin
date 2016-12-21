@@ -9,9 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import net.yuanjin.R;
-import net.yuanjin.mvp.login.view.LoginMVPActivity;
-import net.yuanjin.test.recycleviewdemo.RecyclerViewActivity;
-import net.yuanjin.ui.MyTestMainActivity;
+import net.yuanjin.mytest.recycleviewdemo.RecyclerViewActivity;
 import net.yuanjin.widget.navigation.NavigationText;
 
 /**

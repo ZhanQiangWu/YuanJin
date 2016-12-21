@@ -1,4 +1,4 @@
-package net.yuanjin.test.recycleviewdemo;
+package net.yuanjin.mytest.recycleviewdemo;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,7 +8,6 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.View;
 
 /**
