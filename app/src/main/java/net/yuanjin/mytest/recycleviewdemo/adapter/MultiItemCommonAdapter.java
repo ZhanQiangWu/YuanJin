@@ -33,6 +33,10 @@ public abstract  class MultiItemCommonAdapter<T> extends CommonAdapter<T>{
         return viewHolder;
     }
 
+    protected boolean isEnabled(int viewType) {
+        return true;
+    }
+
 
     public interface MultiItemTypeSupport<T>{
 

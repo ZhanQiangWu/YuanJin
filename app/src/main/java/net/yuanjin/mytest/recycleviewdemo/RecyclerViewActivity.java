@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import net.yuanjin.R;
 import net.yuanjin.mytest.recycleviewdemo.adapter.MultiItemCommonAdapter;
+import net.yuanjin.mytest.recycleviewdemo.adapter.SectionAdapter;
 import net.yuanjin.mytest.recycleviewdemo.base.ViewHolder;
 import net.yuanjin.ui.BasicActivity;
 import net.yuanjin.widget.navigation.NavigationText;
@@ -100,47 +101,70 @@ public class RecyclerViewActivity extends BasicActivity{
 //        });
 
         /**---------------------通用 MultiItemCommonAdapter 配置--------**/
-        recyclerView.setAdapter(new MultiItemCommonAdapter<String>(this, mDatas,
-                new MultiItemCommonAdapter.MultiItemTypeSupport<String>() {
-                    @Override
-                    public int getLayoutId(int itemType) {
+//        recyclerView.setAdapter(new MultiItemCommonAdapter<String>(this, mDatas,
+//                new MultiItemCommonAdapter.MultiItemTypeSupport<String>() {
+//                    @Override
+//                    public int getLayoutId(int itemType) {
+//
+//                        switch (itemType){
+//
+//                            case RECYCLERVIEW_ITEM_TYPE_1:
+//                                return R.layout.item_recycleview;
+//
+//                            case RECYCLERVIEW_ITEM_TYPE_2:
+//                                return R.layout.item_recycleview2;
+//                        }
+//                        return -1;
+//                    }
+//
+//                    @Override
+//                    public int getItemViewType(int position, String s) {
+//                        switch (position%2){
+//                            case 0:
+//                                return RECYCLERVIEW_ITEM_TYPE_1;
+//                            case 1:
+//                                return RECYCLERVIEW_ITEM_TYPE_2;
+//                        }
+//
+//                        return 0;
+//                    }
+//        }) {
+//            @Override
+//            public void convert(ViewHolder viewHolder, final String s) {
+//                viewHolder.setText(R.id.id_recycler_num,s);
+//                viewHolder.setOnClickListener(R.id.id_recycler_num, new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Toast.makeText(RecyclerViewActivity.this,s+" click" ,Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//            }
+//
+//        });
 
-                        switch (itemType){
-
-                            case RECYCLERVIEW_ITEM_TYPE_1:
-                                return R.layout.item_recycleview;
-
-                            case RECYCLERVIEW_ITEM_TYPE_2:
-                                return R.layout.item_recycleview2;
-                        }
-                        return -1;
-                    }
-
-                    @Override
-                    public int getItemViewType(int position, String s) {
-                        switch (position%2){
-                            case 0:
-                                return RECYCLERVIEW_ITEM_TYPE_1;
-                            case 1:
-                                return RECYCLERVIEW_ITEM_TYPE_2;
-                        }
-
-                        return 0;
-                    }
-        }) {
+        /**---------------------通用 SectionAdapter 配置--------**/
+        recyclerView.setAdapter(new SectionAdapter<String>(this, R.layout.item_recycleview, mDatas, new SectionSupport() {
             @Override
-            public void convert(ViewHolder viewHolder, final String s) {
-                viewHolder.setText(R.id.id_recycler_num,s);
-                viewHolder.setOnClickListener(R.id.id_recycler_num, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(RecyclerViewActivity.this,s+" click" ,Toast.LENGTH_SHORT).show();
-                    }
-                });
+            public int sectionHeaderLayoutId() {
+                return 0;
             }
 
-        });
+            @Override
+            public int sectionTitleTextViewId() {
+                return 0;
+            }
 
+            @Override
+            public String getTitle(Object o) {
+                return null;
+            }
+        }) {
+
+            @Override
+            public void convert(ViewHolder viewHolder, String s) {
+
+            }
+        });
 
 
     }
