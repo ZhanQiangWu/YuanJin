@@ -29,7 +29,7 @@ public abstract  class SingleItemTypeAdapter<T> extends RecyclerView.Adapter<Vie
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ViewHolder viewHolder = ViewHolder.get(mContext,parent,mLayoutId);
+        ViewHolder viewHolder = ViewHolder.createViewHolder(mContext,parent,mLayoutId);
         return viewHolder;
     }
 

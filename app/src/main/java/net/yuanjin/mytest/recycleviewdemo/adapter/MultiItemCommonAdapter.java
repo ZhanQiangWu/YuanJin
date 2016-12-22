@@ -29,7 +29,7 @@ public abstract  class MultiItemCommonAdapter<T> extends CommonAdapter<T>{
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         int layoutId = mMultiItemTypeSupport.getLayoutId(viewType);
-        ViewHolder viewHolder = ViewHolder.get(mContext,parent,layoutId);
+        ViewHolder viewHolder = ViewHolder.createViewHolder(mContext,parent,layoutId);
         return viewHolder;
     }
 

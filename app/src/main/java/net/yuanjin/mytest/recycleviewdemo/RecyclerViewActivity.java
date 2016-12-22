@@ -3,6 +3,7 @@ package net.yuanjin.mytest.recycleviewdemo;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import net.yuanjin.R;
 import net.yuanjin.mytest.recycleviewdemo.adapter.MultiItemCommonAdapter;
 import net.yuanjin.mytest.recycleviewdemo.adapter.SectionAdapter;
+import net.yuanjin.mytest.recycleviewdemo.adapter.SingleItemTypeAdapter;
 import net.yuanjin.mytest.recycleviewdemo.base.ViewHolder;
 import net.yuanjin.ui.BasicActivity;
 import net.yuanjin.widget.navigation.NavigationText;
@@ -54,11 +56,11 @@ public class RecyclerViewActivity extends BasicActivity{
         initActionBar();
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
-        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
 
-        recyclerView.setLayoutManager(new GridLayoutManager(this,4,GridLayoutManager.VERTICAL,false));
-        recyclerView.addItemDecoration(new DividerGridItemDecoration(this));
+//        recyclerView.setLayoutManager(new GridLayoutManager(this,4,GridLayoutManager.VERTICAL,false));
+//        recyclerView.addItemDecoration(new DividerGridItemDecoration(this));
 
         //recyclerView.setLayoutManager(new StaggeredGridLayoutManager(4,StaggeredGridLayoutManager.VERTICAL));
         //recyclerView.addItemDecoration(new DividerGridItemDecoration(this));
@@ -75,30 +77,30 @@ public class RecyclerViewActivity extends BasicActivity{
 //        adapter.setOnItemClickListener(new OnItemClickListener() {
 //            @Override
 //            public void onItemClick(View view, int position) {
-//                Toast.makeText(RecyclerViewActivity.this,mDatas.get(position)+" click" ,Toast.LENGTH_SHORT).show();
+//                Toast.makeText(RecyclerViewActivity.this,mDatas.createViewHolder(position)+" click" ,Toast.LENGTH_SHORT).show();
 //            }
 //
 //            @Override
 //            public void onItemLongClick(View view, int position) {
-//                Toast.makeText(RecyclerViewActivity.this,mDatas.get(position)+" longclick" ,Toast.LENGTH_SHORT).show();
+//                Toast.makeText(RecyclerViewActivity.this,mDatas.createViewHolder(position)+" longclick" ,Toast.LENGTH_SHORT).show();
 //                adapter.removeData(position);
 //            }
 //        });
 
         /**---------------------通用 SingleItemTypeAdapter配置--------**/
-//        recyclerView.setAdapter(new SingleItemTypeAdapter<String>(this,R.layout.item_recycleview2,mDatas) {
-//            @Override
-//            public void convert(ViewHolder viewHolder, final String s) {
-//                viewHolder.setText(R.id.id_recycler_num,s);
-//                viewHolder.setOnClickListener(R.id.id_recycler_num, new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Toast.makeText(RecyclerViewActivity.this,s+" click" ,Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//            }
-//
-//        });
+        recyclerView.setAdapter(new SingleItemTypeAdapter<String>(this,R.layout.item_recycleview2,mDatas) {
+            @Override
+            public void convert(ViewHolder viewHolder, final String s) {
+                viewHolder.setText(R.id.id_recycler_num,s);
+                viewHolder.setOnClickListener(R.id.id_recycler_num, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(RecyclerViewActivity.this,s+" click" ,Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+        });
 
         /**---------------------通用 MultiItemCommonAdapter 配置--------**/
 //        recyclerView.setAdapter(new MultiItemCommonAdapter<String>(this, mDatas,
@@ -142,29 +144,6 @@ public class RecyclerViewActivity extends BasicActivity{
 //
 //        });
 
-        /**---------------------通用 SectionAdapter 配置--------**/
-        recyclerView.setAdapter(new SectionAdapter<String>(this, R.layout.item_recycleview, mDatas, new SectionSupport() {
-            @Override
-            public int sectionHeaderLayoutId() {
-                return 0;
-            }
-
-            @Override
-            public int sectionTitleTextViewId() {
-                return 0;
-            }
-
-            @Override
-            public String getTitle(Object o) {
-                return null;
-            }
-        }) {
-
-            @Override
-            public void convert(ViewHolder viewHolder, String s) {
-
-            }
-        });
 
 
     }

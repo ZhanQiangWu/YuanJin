@@ -11,7 +11,7 @@
     <style name="YuanJinTheme" parent="Base.V7.Theme.AppCompat.Light">
         <item name="actionBarStyle">@style/YuanJinActionBarBaseStyle</item>
         <item name="toolbarStyle">@style/YuanJinActionBarBaseStyle</item>
-        <item name = "android:listDivider">@drawable/divider_bg</item>
+        <!--<item name = "android:listDivider">@drawable/divider_bg</item>-->
     </style>
 
     <style name="YuanJinActionBarBaseStyle" parent="@style/Widget.AppCompat.ActionBar">
