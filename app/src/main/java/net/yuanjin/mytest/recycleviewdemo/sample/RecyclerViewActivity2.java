@@ -50,7 +50,7 @@ public class RecyclerViewActivity2 extends BasicActivity{
 
             @Override
             public void convert(ViewHolder holder, String s , int position) {
-                holder.setText(R.id.id_recycler_num, s + " : " + holder.getAdapterPosition() + " , " + holder.getLayoutPosition());
+                holder.setText(R.id.id_recycler_text, s + " : " + holder.getAdapterPosition() + " , " + holder.getLayoutPosition());
 
             }
         };

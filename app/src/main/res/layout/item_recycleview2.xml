@@ -6,7 +6,7 @@
 
     <TextView
         android:paddingLeft="2dp"
-        android:id="@+id/id_recycler_num"
+        android:id="@+id/id_recycler_text"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"

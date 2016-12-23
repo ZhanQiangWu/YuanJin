@@ -88,8 +88,8 @@ public class RecyclerViewActivity extends BasicActivity{
         recyclerView.setAdapter(new SingleItemTypeAdapter<String>(this,R.layout.item_recycleview2,mDatas) {
             @Override
             public void convert(ViewHolder viewHolder, final String s) {
-                viewHolder.setText(R.id.id_recycler_num,s);
-                viewHolder.setOnClickListener(R.id.id_recycler_num, new View.OnClickListener() {
+                viewHolder.setText(R.id.id_recycler_text,s);
+                viewHolder.setOnClickListener(R.id.id_recycler_text, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(RecyclerViewActivity.this,s+" click" ,Toast.LENGTH_SHORT).show();
@@ -238,7 +238,7 @@ public class RecyclerViewActivity extends BasicActivity{
 
             MyViewHolder(View itemView) {
                 super(itemView);
-                tv = (TextView) itemView.findViewById(R.id.id_recycler_num);
+                tv = (TextView) itemView.findViewById(R.id.id_recycler_text);
             }
         }
     }
