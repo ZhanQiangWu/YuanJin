@@ -3,7 +3,7 @@ package net.yuanjin.mytest.recycleviewdemo.adapter;
 import android.content.Context;
 import android.view.ViewGroup;
 
-import net.yuanjin.mytest.recycleviewdemo.CommonAdapter;
+import net.yuanjin.mytest.recycleviewdemo.MyCommonAdapter;
 import net.yuanjin.mytest.recycleviewdemo.base.ViewHolder;
 
 import java.util.List;
@@ -12,11 +12,11 @@ import java.util.List;
  *  Created by wzq on 2016/12/20.
  */
 
-public abstract  class MultiItemCommonAdapter<T> extends CommonAdapter<T>{
+public abstract  class MultiItemMyAdapter<T> extends MyCommonAdapter<T> {
 
     protected MultiItemTypeSupport<T> mMultiItemTypeSupport;
 
-    public MultiItemCommonAdapter(Context context,List<T> datas,MultiItemTypeSupport<T> multiItemTypeSupport){
+    public MultiItemMyAdapter(Context context, List<T> datas, MultiItemTypeSupport<T> multiItemTypeSupport){
         super(context,-1,datas);
         mMultiItemTypeSupport = multiItemTypeSupport;
     }

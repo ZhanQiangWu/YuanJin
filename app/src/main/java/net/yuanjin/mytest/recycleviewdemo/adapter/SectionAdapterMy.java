@@ -15,7 +15,7 @@ import java.util.Set;
  *  Created by WuZhanQiang on 2016/12/21.
  */
 
-public abstract class SectionAdapter<T> extends MultiItemCommonAdapter<T>{
+public abstract class SectionAdapterMy<T> extends MultiItemMyAdapter<T> {
 
     private SectionSupport mSectionSupport;
     private static final int TYPE_SECTION = 0;
@@ -54,7 +54,7 @@ public abstract class SectionAdapter<T> extends MultiItemCommonAdapter<T>{
         }
     };
 
-    public SectionAdapter(Context context,int layoutId, List<T> datas, SectionSupport sectionSupport) {
+    public SectionAdapterMy(Context context, int layoutId, List<T> datas, SectionSupport sectionSupport) {
         super(context, datas, null);
         mLayoutId = layoutId;
         mMultiItemTypeSupport = headerItemTypeSupport;

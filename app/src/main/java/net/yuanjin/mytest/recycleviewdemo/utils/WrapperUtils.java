@@ -37,6 +37,10 @@ public class WrapperUtils {
         }
     }
 
+    /**
+     *
+     * @param holder
+     */
     public static void setFullSpan(RecyclerView.ViewHolder holder){
         ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
         if (layoutParams !=null && layoutParams instanceof StaggeredGridLayoutManager.LayoutParams ){
@@ -46,6 +50,13 @@ public class WrapperUtils {
     }
 
     public interface SpanSizeCallback{
+        /**
+         * 重写位于 position 的item 所占有的 span 数量
+         * @param layoutManager ： RecyclerView 的 LayoutManager
+         * @param oldLookUp ：原 SpanSizeLookUp
+         * @param position
+         * @return
+         */
         int getSpanSize(GridLayoutManager layoutManager,GridLayoutManager.SpanSizeLookup oldLookUp,int position);
     }
 }

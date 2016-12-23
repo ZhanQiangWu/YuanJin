@@ -2,7 +2,6 @@ package net.yuanjin.mytest.recycleviewdemo;
 
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,8 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.yuanjin.R;
-import net.yuanjin.mytest.recycleviewdemo.adapter.MultiItemCommonAdapter;
-import net.yuanjin.mytest.recycleviewdemo.adapter.SectionAdapter;
 import net.yuanjin.mytest.recycleviewdemo.adapter.SingleItemTypeAdapter;
 import net.yuanjin.mytest.recycleviewdemo.base.ViewHolder;
 import net.yuanjin.ui.BasicActivity;
@@ -102,9 +99,9 @@ public class RecyclerViewActivity extends BasicActivity{
 
         });
 
-        /**---------------------通用 MultiItemCommonAdapter 配置--------**/
-//        recyclerView.setAdapter(new MultiItemCommonAdapter<String>(this, mDatas,
-//                new MultiItemCommonAdapter.MultiItemTypeSupport<String>() {
+        /**---------------------通用 MultiItemMyAdapter 配置--------**/
+//        recyclerView.setAdapter(new MultiItemMyAdapter<String>(this, mDatas,
+//                new MultiItemMyAdapter.MultiItemTypeSupport<String>() {
 //                    @Override
 //                    public int getLayoutId(int itemType) {
 //

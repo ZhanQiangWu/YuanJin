@@ -72,4 +72,8 @@ public class ViewHolder extends RecyclerView.ViewHolder{
         return this;
     }
 
+    public View getConvertView() {
+        return mConvertView;
+    }
+
 }

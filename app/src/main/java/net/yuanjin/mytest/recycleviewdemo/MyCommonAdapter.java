@@ -13,14 +13,14 @@ import java.util.List;
  *  Created by zhan on 2016/12/20.
  */
 
-public abstract  class  CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder>{
+public abstract  class MyCommonAdapter<T> extends RecyclerView.Adapter<ViewHolder>{
 
     protected Context mContext;
     protected int mLayoutId;
     protected List<T> mDatas;
     protected LayoutInflater mInflater;
 
-    public CommonAdapter(Context context, int layoutId, List<T> datas){
+    public MyCommonAdapter(Context context, int layoutId, List<T> datas){
         mContext = context;
         mInflater = LayoutInflater.from(context);
         mLayoutId = layoutId;
