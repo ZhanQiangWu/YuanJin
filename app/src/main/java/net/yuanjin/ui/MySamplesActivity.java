@@ -15,6 +15,7 @@ import net.yuanjin.mytest.recycleviewdemo.sample.CommonAdapter;
 import net.yuanjin.mytest.recycleviewdemo.sample.MultiItemRvActivity;
 import net.yuanjin.mytest.recycleviewdemo.sample.MultiItemTypeAdapter;
 import net.yuanjin.mytest.recycleviewdemo.sample.RecyclerViewActivity2;
+import net.yuanjin.mytest.rxjavademo.RxJavaDemoActivity;
 import net.yuanjin.widget.navigation.NavigationText;
 
 import java.util.ArrayList;
@@ -79,6 +80,7 @@ public class MySamplesActivity extends BasicActivity{
         sampleDatas.add(new SampleItem("RecyclerView", RecyclerViewActivity.class));
         sampleDatas.add(new SampleItem("MultitemRvActivity", MultiItemRvActivity.class));
         sampleDatas.add(new SampleItem("RecyclerViewActivity", RecyclerViewActivity2.class));
+        sampleDatas.add(new SampleItem("RxJavaActivity", RxJavaDemoActivity.class));
     }
 
     private void initNavigation() {
