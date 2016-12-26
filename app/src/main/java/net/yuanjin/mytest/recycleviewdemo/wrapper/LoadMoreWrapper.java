@@ -3,6 +3,7 @@ package net.yuanjin.mytest.recycleviewdemo.wrapper;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -29,6 +30,7 @@ public class LoadMoreWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Log.i("mytest","--- LoadMoreWrapper  onCreateViewHolder --->");
         if (viewType == ITEM_TYPE_LOAD_MORE){
             ViewHolder holder;
             if (mLoadMoreView != null){
@@ -43,6 +45,7 @@ public class LoadMoreWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        Log.i("mytest","--- LoadMoreWrapper  onBindViewHolder ---> position: "+position);
         if (isShowLoadMore(position)){
             if (mOnLoadMoreListener != null){
                 mOnLoadMoreListener.onLoadMoreRequested();
@@ -67,6 +70,7 @@ public class LoadMoreWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        Log.i("mytest","--- LoadMoreWrapper  onAttachedToRecyclerView ---> ");
         WrapperUtils.onAttachedToRecyclerView(mInnerAdapter, recyclerView, new WrapperUtils.SpanSizeCallback() {
 
             @Override

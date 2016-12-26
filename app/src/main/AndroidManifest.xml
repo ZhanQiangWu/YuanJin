@@ -17,7 +17,6 @@
         </activity>
 
         <activity android:name=".mvp.login.view.LoginMVPActivity"/>
-        <activity android:name=".ui.MyTestMainActivity"/>
 
         <!-- Test Activity-->
         <activity android:name=".mytest.recycleviewdemo.RecyclerViewActivity"/>

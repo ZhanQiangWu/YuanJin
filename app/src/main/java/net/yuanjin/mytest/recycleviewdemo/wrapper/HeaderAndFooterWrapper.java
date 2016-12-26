@@ -32,6 +32,7 @@ public class HeaderAndFooterWrapper<T> extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Log.i("mytest","--- HeaderAndFooterWrapper  onCreateViewHolder --->");
         if (mHeaderViews.get(viewType) != null){
             ViewHolder holder = ViewHolder.createViewHolder(parent.getContext(), mHeaderViews.get(viewType));
             return holder;
@@ -54,7 +55,7 @@ public class HeaderAndFooterWrapper<T> extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
+        Log.i("mytest","--- HeaderAndFooterWrapper  onBindViewHolder ---> position: "+position);
         if (isHeaderViewPos(position)){
             return;
         }
@@ -72,7 +73,7 @@ public class HeaderAndFooterWrapper<T> extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        Log.i("mytest","--- HeaderAndFooterWrapper onAttachedToRecyclerView ---> ");
+        Log.i("mytest","--- HeaderAndFooterWrapper  onAttachedToRecyclerView ---> ");
         WrapperUtils.onAttachedToRecyclerView(mInnerAdapter, recyclerView, new WrapperUtils.SpanSizeCallback() {
             //获得item的span数量
             @Override
