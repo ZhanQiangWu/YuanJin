@@ -24,6 +24,7 @@
         <activity android:name=".mytest.recycleviewdemo.sample.MultiItemRvActivity"/>
         <activity android:name=".ui.MySamplesActivity"/>
         <activity android:name=".mytest.rxjavademo.RxJavaDemoActivity"/>
+        <activity android:name=".mytest.picassodemo.PicassoSampleActivity"/>
 
     </application>
 

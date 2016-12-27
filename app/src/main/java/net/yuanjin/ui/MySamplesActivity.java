@@ -8,6 +8,7 @@ import android.view.View;
 
 import net.yuanjin.R;
 import net.yuanjin.mvp.login.view.LoginMVPActivity;
+import net.yuanjin.mytest.picassodemo.PicassoSampleActivity;
 import net.yuanjin.mytest.recycleviewdemo.DividerItemDecoration;
 import net.yuanjin.mytest.recycleviewdemo.RecyclerViewActivity;
 import net.yuanjin.mytest.recycleviewdemo.base.ViewHolder;
@@ -81,6 +82,7 @@ public class MySamplesActivity extends BasicActivity{
         sampleDatas.add(new SampleItem("MultitemRvActivity", MultiItemRvActivity.class));
         sampleDatas.add(new SampleItem("RecyclerViewActivity", RecyclerViewActivity2.class));
         sampleDatas.add(new SampleItem("RxJavaActivity", RxJavaDemoActivity.class));
+        sampleDatas.add(new SampleItem("PicassoSampleActivity",PicassoSampleActivity.class));
     }
 
     private void initNavigation() {
