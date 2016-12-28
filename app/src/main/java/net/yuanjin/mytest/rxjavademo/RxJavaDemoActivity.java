@@ -9,6 +9,9 @@ import net.yuanjin.ui.BasicActivity;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
+import rx.functions.Action;
+import rx.functions.Action0;
+import rx.functions.Action1;
 
 /**
  *  Created by zhan on 2016/12/21.
@@ -75,6 +78,7 @@ public class RxJavaDemoActivity extends BasicActivity{
         });
 
         //以下两个操作等效
+
         //Observable observable1 = Observable.just("Hello", "Hi", "Aloha");
         // 将会依次调用：
         // onNext("Hello");
@@ -89,5 +93,37 @@ public class RxJavaDemoActivity extends BasicActivity{
         // onNext("Hi");
         // onNext("Aloha");
         // onCompleted();
+
+        //Action0 是 RxJava 的一个接口，它只有一个方法 call()，这个方法是无参无返回值的
+        Action0 onCompletedAction = new Action0(){
+            // onCompleted()
+            @Override
+            public void call() {
+                Log.i(tag, "completed");
+            }
+        };
+
+        Action1<String> onNextAction = new Action1<String>() {
+            // onNext()
+            @Override
+            public void call(String s) {
+                Log.i(tag, s);
+            }
+        };
+
+        Action1<Throwable> onErrorAction = new Action1<Throwable>() {
+            // onError()
+            @Override
+            public void call(Throwable throwable) {
+                // Error handling
+            }
+        };
+
+        // 自动创建 Subscriber ，并使用 onNextAction 来定义 onNext()
+        observable.subscribe(onNextAction);
+        // 自动创建 Subscriber ，并使用 onNextAction 和 onErrorAction 来定义 onNext() 和 onError()
+        observable.subscribe(onNextAction,onErrorAction);
+        // 自动创建 Subscriber ，并使用 onNextAction、 onErrorAction 和 onCompletedAction 来定义 onNext()、 onError() 和 onCompleted()
+        observable.subscribe(onNextAction,onErrorAction,onCompletedAction);
     }
 }
