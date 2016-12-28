@@ -1,7 +1,10 @@
 package net.yuanjin.mytest.rxjavademo;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import net.yuanjin.R;
 import net.yuanjin.ui.BasicActivity;
@@ -20,6 +23,7 @@ import rx.functions.Action1;
 public class RxJavaDemoActivity extends BasicActivity{
 
     private String tag = "mytest";
+    private ImageView imageView;
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -120,10 +124,47 @@ public class RxJavaDemoActivity extends BasicActivity{
         };
 
         // 自动创建 Subscriber ，并使用 onNextAction 来定义 onNext()
-        observable.subscribe(onNextAction);
-        // 自动创建 Subscriber ，并使用 onNextAction 和 onErrorAction 来定义 onNext() 和 onError()
-        observable.subscribe(onNextAction,onErrorAction);
-        // 自动创建 Subscriber ，并使用 onNextAction、 onErrorAction 和 onCompletedAction 来定义 onNext()、 onError() 和 onCompleted()
+//        observable.subscribe(onNextAction);
+//        // 自动创建 Subscriber ，并使用 onNextAction 和 onErrorAction 来定义 onNext() 和 onError()
+//        observable.subscribe(onNextAction,onErrorAction);
+//        // 自动创建 Subscriber ，并使用 onNextAction、 onErrorAction 和 onCompletedAction 来定义 onNext()、 onError() 和 onCompleted()
         observable.subscribe(onNextAction,onErrorAction,onCompletedAction);
+
+        String[] names = {"小青","小白","小黑"};
+        Observable.from(names)
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                        Log.i(tag,s);
+                    }
+                });
+
+        final int drawableRes = R.drawable.picasso_drawable;
+        imageView = (ImageView) findViewById(R.id.imageview_rxjava);
+        Observable.create(new Observable.OnSubscribe<Drawable>() {
+
+            @Override
+            public void call(Subscriber<? super Drawable> subscriber) {
+                Drawable drawable = getResources().getDrawable(drawableRes);
+                subscriber.onNext(drawable);
+                subscriber.onCompleted();
+            }
+        }).subscribe(new Observer<Drawable>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Toast.makeText(RxJavaDemoActivity.this, "Error!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNext(Drawable drawable) {
+                Log.i(tag,"获取图片了");
+                imageView.setImageDrawable(drawable);
+            }
+        });
     }
 }
