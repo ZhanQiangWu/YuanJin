@@ -3,6 +3,12 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/imgview_picasso"
+        android:layout_width="50dp"
+        android:src="@mipmap/ic_launcher"
+        android:layout_height="50dp"/>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview_picasso"
