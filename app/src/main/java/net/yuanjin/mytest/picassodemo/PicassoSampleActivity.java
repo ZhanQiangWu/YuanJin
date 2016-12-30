@@ -18,13 +18,11 @@ import android.renderscript.ScriptIntrinsicBlur;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
@@ -60,13 +58,8 @@ public class PicassoSampleActivity extends BasicActivity{
         setContentView(R.layout.activity_picassosample);
 
         initActionBar();
-        initImgDatas2();
-
-        ImageView imageView = (ImageView) findViewById(R.id.imgview_picasso);
-        Picasso.with(this)
-                .load("http://pic.58pic.com/58pic/16/41/87/61f58PICrWi_1024.jpg")
-                .fit()
-                .into(imageView);
+        initImgDatas3();
+        initPicasso();
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview_picasso);
 
@@ -97,6 +90,22 @@ public class PicassoSampleActivity extends BasicActivity{
 
         adapter = new MyAdapter();
         recyclerView.setAdapter(adapter);
+
+
+
+    }
+
+    /**
+     * Picasso初始化
+     */
+    private void initPicasso() {
+        /** 通过Builder方式 自定义Picasso **/
+
+        Picasso picasso = new Picasso.Builder(PicassoSampleActivity.this)
+                //.downloader(new OkHttpDownloader(new OkHttpClient()))// 更改 Downloader
+                .addRequestHandler(new MyRequestHandler(this))
+                .build();
+        Picasso.setSingletonInstance(picasso);//将自定义 picasso 变成全局使用
     }
 
 
@@ -120,26 +129,40 @@ public class PicassoSampleActivity extends BasicActivity{
         public void onBindViewHolder(MyViewHolder holder, int position) {
             holder.text.setText(imgText.get(position));
 
+            ArrayList<Transformation> transformations = new ArrayList<>();
+            transformations.add(new BlurTransformation(PicassoSampleActivity.this));
+            transformations.add(new GrayscaleTransformation(Picasso.with(PicassoSampleActivity.this)));
+
+            //Picasso的标准创建方式 Picasso.with(context)
+
+            Picasso.with(PicassoSampleActivity.this)
+                    .setIndicatorsEnabled(true);//左上角标识；蓝色 - 从内存中获取,最佳性能；绿色 - 从本地获取,性能一般；红色 - 从网络加载,性能最差
+
 //            Picasso.with(PicassoSampleActivity.this)
-//                    .load(imgUrls.get(position))
-//                    .placeholder(R.mipmap.ic_launcher)
-//                    .error(R.mipmap.ic_error)
-//                    //.resizeDimen(R.dimen.list_detail_image_size,R.dimen.list_detail_image_size)
-//                    //.centerCrop() //图片会被剪切中间部分
-//                    //.centerInside() //图片会被完整的展示,可能图片不会填充满ImageView`,也有可能会被拉伸或者挤压
-//                    //.noFade() //去除图片加载时的默认淡入效果
-//                    //.noPlaceholder() //避免同一个view 图片第二次加载时刷出预置图片(不与placeholder同时使用)
-////                    .resize(100,100) //自定义图片的加载大小.一般会重新计算以改变图片的加载质量,比如小图变成大图
-////                    .onlyScaleDown() //来缩短图片的加载计算时间, 如果图片规格大于resize设定规格,将直接进行展示而不再重新计算
-//                    //.fit() //Picasso会对图片的大小及ImageView进行测量,计算出最佳的大小及最佳的图片质量来进行图片展示,减少内存,并对视图没有影响(不与resize同时使用)
-//                    //.priority(Picasso.Priority.HIGH) //设置图片加载的优先级,默认优先级为MEDIUM
-//                    //.tag(PicassoSampleActivity.this) //结合 pauseTag()，resumeTag() 可控制根据listview的滚动状态决定是否加载图片，pauseTag 不加载，resumeTag 加载
-//                    //.memoryPolicy(MemoryPolicy.NO_CACHE,MemoryPolicy.NO_STORE) //NO_STORE:指图片加载完不缓存在内存中 ; 指图片加载时放弃在内存缓存中查找 .适用于大图查看
-//                    //.config(Bitmap.Config.RGB_565)// 对于不透明的图片可以使用RGB_565来优化内存, Android使用ARGB_8888
-//                    //.rotate(90f) //加载时图片旋转，大于0小于360
-//                    //.transform(new BlurTransformation(PicassoSampleActivity.this))
-//                    //.transform(new GrayscaleTransformation(Picasso.with(PicassoSampleActivity.this)))
-//                    .into(holder.image);
+//                    .setLoggingEnabled(true);// 通过输出日志的方式查看每张网络请求的资源所用的时间
+
+            Picasso.with(PicassoSampleActivity.this)
+                    .load(imgUrls.get(position))
+                    .placeholder(R.mipmap.ic_launcher)
+                    .error(R.mipmap.ic_error)
+                    //.resizeDimen(R.dimen.list_detail_image_size,R.dimen.list_detail_image_size)
+                    //.centerCrop() //图片会被剪切中间部分
+                    //.centerInside() //图片会被完整的展示,可能图片不会填充满ImageView`,也有可能会被拉伸或者挤压
+                    //.noFade() //去除图片加载时的默认淡入效果
+                    //.noPlaceholder() //避免同一个view 图片第二次加载时刷出预置图片(不与placeholder同时使用)
+                    .resize(400,400) //自定义图片的加载大小.一般会重新计算以改变图片的加载质量,比如小图变成大图
+                    .onlyScaleDown() //来缩短图片的加载计算时间, 如果图片规格大于resize设定规格,将直接进行展示而不再重新计算
+                    //.fit() //Picasso会对图片的大小及ImageView进行测量,计算出最佳的大小及最佳的图片质量来进行图片展示,减少内存,并对视图没有影响(不与resize同时使用)
+                    //.priority(Picasso.Priority.HIGH) //设置图片加载的优先级,默认优先级为MEDIUM
+                    //.tag(PicassoSampleActivity.this) //结合 pauseTag()，resumeTag() 可控制根据listview的滚动状态决定是否加载图片，pauseTag 不加载，resumeTag 加载
+                    //.memoryPolicy(MemoryPolicy.NO_CACHE) //内存缓存管理。NO_STORE:指图片加载完不缓存在内存中 ;NO_CACHE: 指图片加载时放弃在内存缓存中查找 .适用于大图查看
+                    //.networkPolicy(NetworkPolicy.NO_CACHE) //本地缓存管理。 NO_CACHE:跳过从本地读取资源这一过程 ; NO_STORE:不进行本地图片缓存 ; OFFLINE :只从本地读取除非联网正常并且本地找不到资源的情况
+                    .config(Bitmap.Config.RGB_565)// 对于不透明的图片可以使用RGB_565来优化内存, Android使用ARGB_8888
+                    //.rotate(90f) //加载时图片旋转，大于0小于360
+                    //.transform(new BlurTransformation(PicassoSampleActivity.this)) //图片转化 -- 模糊
+                    //.transform(new GrayscaleTransformation(Picasso.with(PicassoSampleActivity.this))) //图片转化 -- 灰化
+                    //.transform(transformations) //图片转化 -- 模糊+灰化
+                    .into(holder.image);
 
 //            Picasso.with(PicassoSampleActivity.this)
 //                    .load(imgUrls.get(position))
@@ -148,14 +171,11 @@ public class PicassoSampleActivity extends BasicActivity{
 //                    .fit()
 //                    .into(holder.image);
 
-            Picasso.with(getApplicationContext())
-                    .load(imgUrls.get(position))
-                    .placeholder(R.mipmap.ic_empty)
-                    .error(R.mipmap.ic_error)
-                    .resizeDimen(R.dimen.list_detail_image_size, R.dimen.list_detail_image_size)
-                    .centerInside()
-                    .tag(this)
-                    .into(holder.image);
+
+
+
+
+
 
     }
 
@@ -197,6 +217,24 @@ public class PicassoSampleActivity extends BasicActivity{
             imgText.add("img "+ i);
             imgUrls.add(Data.URLS[i]);
         }
+    }
+
+    private void initImgDatas3() {
+        imgText = new ArrayList<String>();
+        imgUrls = new ArrayList<String>();
+        imgText.add("f01");
+        imgText.add("f02");
+        imgText.add("f03");
+        imgText.add("f04");
+        imgText.add("f05");
+        imgText.add("f06");
+
+        imgUrls.add("headimg://f01");
+        imgUrls.add("headimg://f02");
+        imgUrls.add("headimg://f03");
+        imgUrls.add("headimg://f04");
+        imgUrls.add("headimg://f01");
+        imgUrls.add("headimg://f02");
     }
 
     public class BlurTransformation implements Transformation{
@@ -245,7 +283,7 @@ public class PicassoSampleActivity extends BasicActivity{
     }
 
 
-    //缩放
+    //图片灰化处理
     public class GrayscaleTransformation implements Transformation {
 
         private final Picasso picasso;
@@ -259,7 +297,7 @@ public class PicassoSampleActivity extends BasicActivity{
             Bitmap result = createBitmap(source.getWidth(), source.getHeight(), source.getConfig());
             Bitmap noise;
             try {
-                noise = picasso.load(R.drawable.picasso_drawable).get();
+                noise = picasso.load(R.drawable.picasso_drawable).get();//叠加图片
             } catch (IOException e) {
                 throw new RuntimeException("Failed to apply transformation! Missing resource.");
             }

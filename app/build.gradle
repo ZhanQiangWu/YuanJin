@@ -34,4 +34,5 @@ dependencies {
 
     compile project(':yuanjin-ormlib')
     compile 'com.squareup.picasso:picasso:2.5.2'
+//    compile 'com.squareup.okhttp:okhttp:2.4.0'
 }

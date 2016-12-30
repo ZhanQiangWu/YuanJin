@@ -1,5 +1,8 @@
 package net.yuanjin.mytest.picassodemo;
 
+/**
+ * Picasso的画作图片
+ */
 final class Data {
   static final String BASE = "http://i.imgur.com/";
   static final String EXT = ".jpg";

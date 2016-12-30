@@ -54,6 +54,7 @@ public class Constants {
             "https://www.eff.org/sites/default/files/chrome150_0.jpg", // Image from HTTPS
             "http://bit.ly/soBiXr", // Redirect link
             "http://img001.us.expono.com/100001/100001-1bc30-2d736f_m.jpg", // EXIF
+            "https://raw.githubusercontent.com/square/picasso/master/website/static/sample.png", // Empty link    -- 35
             "https://42.159.86.120:82/bs/b9ae8a02-117f-40b7-b55e-ee1090a9e362.png?ts=1482892773&sc=200&ex=300&si=9c04b318f5ccc2b68fd8869c0df74f66", // Empty link    -- 35
             "http://wrong.site.com/corruptedLink", // Wrong link
     };
