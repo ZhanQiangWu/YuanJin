@@ -7,6 +7,7 @@ import net.yuanjin.ormlib.annotation.SqliteAnnotationField;
 import net.yuanjin.ormlib.annotation.SqliteAnnotationTable;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,12 +41,8 @@ public abstract class BaseSqliteDALEx implements Serializable,Cloneable{
     public void createTable() {
         BaseSqliteOpenHelper db = getDB();
         if (!db.isTableExits(TABLE_NAME)){
-            if (TextUtils.isEmpty(SQL_CREATETABLE)){
-                SQL_CREATETABLE = sqlCreateTable();
-            }
-            if (TextUtils.isEmpty(TABLE_NAME)){
-                TABLE_NAME = createTableName();
-            }
+            if (TextUtils.isEmpty(SQL_CREATETABLE)){ SQL_CREATETABLE = sqlCreateTable();}
+            if (TextUtils.isEmpty(TABLE_NAME)){ TABLE_NAME = createTableName();}
             db.creatTable(SQL_CREATETABLE);
         }
     }
@@ -55,11 +52,20 @@ public abstract class BaseSqliteDALEx implements Serializable,Cloneable{
      * @return String
      */
     private String sqlCreateTable() {
-        // TODO: 2017/1/4  sqlcreatetable
         if (!TextUtils.isEmpty(SQL_CREATETABLE)) return SQL_CREATETABLE;
         //遍历带注解的字段
         List<SqliteAnnotationField> safs = getSqliteAnnotationField();
-        return null;
+        List<String> fieldsStr = new ArrayList<String>();
+        // TODO: 2017/1/5 后面测试 去掉单引号可不可以
+        fieldsStr.add(" `id` integer primary key autoincrement ");
+
+        for (SqliteAnnotationField saf:safs){
+            //COLLATE NOCASE :排序与大小写无关
+            fieldsStr.add("`"+saf.getColumnName()+"`"+" "+saf.getType()+(saf.isPrimarykey()?" COLLATE NOCASE ":" "));
+        }
+        //拼接初始化表的语句
+        SQL_CREATETABLE = String.format("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ( %s )", TextUtils.join(",",fieldsStr));
+        return SQL_CREATETABLE;
     }
 
     /**
