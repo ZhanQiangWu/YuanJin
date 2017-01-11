@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
+        android:name=".base.YuanJinApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -29,6 +30,8 @@
         <activity android:name=".ui.MySamplesActivity"/>
         <activity android:name=".mytest.rxjavademo.RxJavaDemoActivity"/>
         <activity android:name=".mytest.picassodemo.PicassoSampleActivity"/>
+        <activity android:name=".mytest.picassodemo.imageloader.XtionImageLoaderDemo"/>
+        <activity android:name=".widgetlib.photolib.Sample_Photolib"/>
 
     </application>
 

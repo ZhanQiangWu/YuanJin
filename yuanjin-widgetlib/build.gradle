@@ -1,15 +1,17 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
+
     defaultConfig {
-        applicationId "net.yuanjin"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
     buildTypes {
         release {
@@ -24,18 +26,11 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.4.0'
-
-    compile 'com.android.support:recyclerview-v7:23.2.1'
-    compile 'jp.wasabeef:recyclerview-animators:2.2.5'
-
-    compile 'io.reactivex:rxjava:1.0.14'
-
-    compile project(':yuanjin-ormlib')
+    compile 'com.android.support:appcompat-v7:23.2.1'
     compile project(':yuanjin-common')
-    compile project(':yuanjin-widgetlib')
+    testCompile 'junit:junit:4.12'
+
     compile 'com.squareup.picasso:picasso:2.5.2'
-//    compile 'com.squareup.okhttp:okhttp:2.5.0'
-//    compile 'com.squareup.okhttp3:okhttp:3.5.0'
+    compile 'com.commit451:PhotoView:1.2.5'
+
 }

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:padding="10dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="photo用例"
+        android:layout_gravity="center"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_cropcamera"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="拍照+截图"
+            android:layout_marginBottom="5dp"/>
+
+        <Button
+            android:id="@+id/btn_camera"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="仅拍照"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="5dp"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_cropcamera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:maxLines="2"
+        tools:text="照片地址："/>
+
+    <ImageView
+        android:id="@+id/iv_cropcamera"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:src="@mipmap/img_upload_default_left"
+        android:scaleType="fitCenter"
+        android:layout_marginBottom="5dp"/>
+
+    <Button
+        android:id="@+id/btn_selectalbum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="gotoPickMapActivity"
+        android:text="从相册选择，返回临时地址"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:id="@+id/tv_cropalbum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        tools:text="照片地址："/>
+
+    <ImageView
+        android:id="@+id/iv_cropalbum"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:src="@mipmap/img_upload_default_left"
+        android:layout_marginBottom="5dp"
+        android:scaleType="fitCenter"/>
+
+    <ImageView
+        android:id="@+id/imagetest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/img_upload_default_left"/>
+
+    <Button
+        android:id="@+id/btn_imagepagertest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="gotoPickMapActivity"
+        android:layout_marginBottom="5dp"/>
+
+
+
+
+
+</LinearLayout>

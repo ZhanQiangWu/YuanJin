@@ -9,6 +9,7 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.renderscript.Allocation;
@@ -18,12 +19,15 @@ import android.renderscript.ScriptIntrinsicBlur;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.squareup.picasso.Transformation;
 
 import net.yuanjin.R;
@@ -31,6 +35,7 @@ import net.yuanjin.mytest.recycleviewdemo.DividerItemDecoration;
 import net.yuanjin.ui.BasicActivity;
 import net.yuanjin.widget.navigation.NavigationText;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +63,7 @@ public class PicassoSampleActivity extends BasicActivity{
         setContentView(R.layout.activity_picassosample);
 
         initActionBar();
-        initImgDatas3();
+        initImgDatas();
         initPicasso();
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview_picasso);
@@ -126,12 +131,12 @@ public class PicassoSampleActivity extends BasicActivity{
         }
 
         @Override
-        public void onBindViewHolder(MyViewHolder holder, int position) {
+        public void onBindViewHolder(final MyViewHolder holder, final int position) {
             holder.text.setText(imgText.get(position));
 
-            ArrayList<Transformation> transformations = new ArrayList<>();
-            transformations.add(new BlurTransformation(PicassoSampleActivity.this));
-            transformations.add(new GrayscaleTransformation(Picasso.with(PicassoSampleActivity.this)));
+//            ArrayList<Transformation> transformations = new ArrayList<>();
+//            transformations.add(new BlurTransformation(PicassoSampleActivity.this));
+//            transformations.add(new GrayscaleTransformation(Picasso.with(PicassoSampleActivity.this)));
 
             //Picasso的标准创建方式 Picasso.with(context)
 
@@ -142,6 +147,7 @@ public class PicassoSampleActivity extends BasicActivity{
 //                    .setLoggingEnabled(true);// 通过输出日志的方式查看每张网络请求的资源所用的时间
 
             Picasso.with(PicassoSampleActivity.this)
+                    //.load(new File(imgUrls.get(position)))
                     .load(imgUrls.get(position))
                     .placeholder(R.mipmap.ic_launcher)
                     .error(R.mipmap.ic_error)
@@ -162,7 +168,33 @@ public class PicassoSampleActivity extends BasicActivity{
                     //.transform(new BlurTransformation(PicassoSampleActivity.this)) //图片转化 -- 模糊
                     //.transform(new GrayscaleTransformation(Picasso.with(PicassoSampleActivity.this))) //图片转化 -- 灰化
                     //.transform(transformations) //图片转化 -- 模糊+灰化
-                    .into(holder.image);
+                    .into(new Target() {
+                        @Override
+                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                            holder.image.setImageBitmap(bitmap);
+                        }
+
+                        @Override
+                        public void onBitmapFailed(Drawable errorDrawable) {
+
+                        }
+
+                        @Override
+                        public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                        }
+                    });
+//                    .into(holder.image, new Callback() {//下载过程监听
+//                        @Override
+//                        public void onSuccess() {
+//
+//                        }
+//
+//                        @Override
+//                        public void onError() {
+//
+//                        }
+//                    });
 
 //            Picasso.with(PicassoSampleActivity.this)
 //                    .load(imgUrls.get(position))

@@ -9,6 +9,7 @@ import android.view.View;
 import net.yuanjin.R;
 import net.yuanjin.mvp.login.view.LoginMVPActivity;
 import net.yuanjin.mytest.picassodemo.PicassoSampleActivity;
+import net.yuanjin.mytest.picassodemo.imageloader.XtionImageLoaderDemo;
 import net.yuanjin.mytest.recycleviewdemo.DividerItemDecoration;
 import net.yuanjin.mytest.recycleviewdemo.RecyclerViewActivity;
 import net.yuanjin.mytest.recycleviewdemo.base.ViewHolder;
@@ -18,6 +19,7 @@ import net.yuanjin.mytest.recycleviewdemo.sample.MultiItemTypeAdapter;
 import net.yuanjin.mytest.recycleviewdemo.sample.RecyclerViewActivity2;
 import net.yuanjin.mytest.rxjavademo.RxJavaDemoActivity;
 import net.yuanjin.widget.navigation.NavigationText;
+import net.yuanjin.widgetlib.photolib.Sample_Photolib;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,6 +85,8 @@ public class MySamplesActivity extends BasicActivity{
         sampleDatas.add(new SampleItem("RecyclerViewActivity", RecyclerViewActivity2.class));
         sampleDatas.add(new SampleItem("RxJavaActivity", RxJavaDemoActivity.class));
         sampleDatas.add(new SampleItem("PicassoSampleActivity",PicassoSampleActivity.class));
+        sampleDatas.add(new SampleItem("XtionImageLoaderDemo", XtionImageLoaderDemo.class));
+        sampleDatas.add(new SampleItem("Sample_Photolib", Sample_Photolib.class));
     }
 
     private void initNavigation() {
