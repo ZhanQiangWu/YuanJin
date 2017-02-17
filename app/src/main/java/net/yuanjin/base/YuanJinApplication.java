@@ -1,10 +1,18 @@
 package net.yuanjin.base;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
+import com.tencent.android.tpush.XGIOperateCallback;
+import com.tencent.android.tpush.XGPushConfig;
+import com.tencent.android.tpush.XGPushManager;
+import com.tencent.android.tpush.service.XGPushService;
 
+import net.yuanjin.tencentxg.receiver.MessageReceiver;
 import net.yuanjin.widgetlib.imageloader.XtionImageLoader;
 
 import java.security.cert.CertificateException;
@@ -29,59 +37,19 @@ public class YuanJinApplication extends Application{
         super.onCreate();
 
         XtionImageLoader.init(getApplicationContext());
-        //initPicasso();//Picasso初始化
+
+        Log.d(MessageReceiver.LogTag, "开始腾讯信鸽注册操作");
+        XGPushConfig.enableDebug(this,true);
+        XGPushManager.registerPush(this, new XGIOperateCallback() {
+            @Override
+            public void onSuccess(Object data, int flag) {
+                Log.d(MessageReceiver.LogTag, "注册成功，设备token为：" + data);
+            }
+            @Override
+            public void onFail(Object data, int errCode, String msg) {
+                Log.d(MessageReceiver.LogTag, "注册失败，错误码：" + errCode + ",错误信息：" + msg);
+            }
+        });
     }
 
-//    private void initPicasso() {
-//        Picasso.setSingletonInstance(new Picasso.Builder(getApplicationContext())
-//                .downloader(new OkHttpDownloader(getUnsafeOkHttpClient())).build()
-//        );
-//    }
-
-//    public static OkHttpClient getUnsafeOkHttpClient(){
-//        try {
-//            // Create a trust manager that does not validate certificate chains
-//            final TrustManager[] trustAllCerts = new TrustManager[]{
-//                    new X509TrustManager() {
-//                        @Override
-//                        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-//
-//                        }
-//
-//                        @Override
-//                        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-//
-//                        }
-//
-//                        @Override
-//                        public X509Certificate[] getAcceptedIssuers() {
-//                            return new X509Certificate[0];
-//                        }
-//                    }
-//            };
-//
-//            // Install the all-trusting trust manager
-//            final SSLContext sslContext = SSLContext.getInstance("SSL");
-//            sslContext.init(null, trustAllCerts,new java.security.SecureRandom());
-//
-//            // Create an ssl socket factory with our all-trusting manager
-//            final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
-//
-//            OkHttpClient okHttpClient = new OkHttpClient();
-//            okHttpClient.setSslSocketFactory(sslSocketFactory);
-//            okHttpClient.setHostnameVerifier(new HostnameVerifier() {
-//
-//                @Override
-//                public boolean verify(String hostname, SSLSession session) {
-//                    return true;
-//
-//                }
-//            });
-//            return okHttpClient;
-//
-//        }catch (Exception e) {
-//
-//            throw new RuntimeException(e);
-//        }
-//    }
 }

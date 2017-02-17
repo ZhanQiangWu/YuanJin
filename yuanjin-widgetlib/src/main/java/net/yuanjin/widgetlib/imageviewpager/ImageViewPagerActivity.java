@@ -173,8 +173,8 @@ public class ImageViewPagerActivity extends Activity {
 
             //XtionImageLoader.getInstance().l
             // TODO: 2017/1/11 待验证此处下载到本地的图片是否成功以及名字如何
-            Bitmap bitmap = XtionImageLoader.getInstance().getDiskCache(url);
-            saveBitmap(bitmap);
+//            Bitmap bitmap = XtionImageLoader.getInstance().getDiskCache(url);
+//            saveBitmap(bitmap);
 
         }else{
             //本地路径

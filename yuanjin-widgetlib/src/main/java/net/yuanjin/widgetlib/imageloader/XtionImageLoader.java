@@ -49,13 +49,13 @@ public class XtionImageLoader {
         return new XtionImageLoaderOption(this,path);
     }
 
-    /**
-     * 通过服务端路径获取本地缓存
-     * @param path 图片的服务端路径
-     * @return
-     */
-    public Bitmap getDiskCache(String path){
-        return new XtionImageLoaderOption(this).getDiskCache(path);
-    }
+//    /**
+//     * 通过服务端路径获取本地缓存
+//     * @param path 图片的服务端路径
+//     * @return
+//     */
+//    public Bitmap getDiskCache(String path){
+//        return new XtionImageLoaderOption(this).getDiskCache(path);
+//    }
 
 }

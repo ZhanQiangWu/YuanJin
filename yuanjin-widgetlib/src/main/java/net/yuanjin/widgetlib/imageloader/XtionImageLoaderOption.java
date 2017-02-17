@@ -4,13 +4,10 @@ import android.graphics.Bitmap;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Callback;
-import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
 import net.yuanjin.widgetlib.R;
-
-import java.io.IOException;
 
 /**
  *  Created by WuZhanQiang on 2017/1/6.
@@ -202,30 +199,30 @@ public class XtionImageLoaderOption {
 //        });
     }
 
-    /**
-     * 通过服务端路径获取本地缓存
-     * @param path 图片的服务端路径
-     * @return
-     */
-    public Bitmap getDiskCache(String path){
-        switch (type){
-            case Picasso:
-                try {
-                    // TODO: 2017/1/11 可以的话这里还是要完善才好，因为又重复做了取bitmap的操作 
-                    return Picasso.with(xtionImageLoader.context).load(path)
-                            .networkPolicy(NetworkPolicy.OFFLINE).get();//OFFLINE只从本地取
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return null;
-                }
-
-            case ImageLoader:
-
-
-            default:
-                return null;
-        }
-    }
+//    /**
+//     * 通过服务端路径获取本地缓存
+//     * @param path 图片的服务端路径
+//     * @return
+//     */
+//    public Bitmap getDiskCache(String path){
+//        switch (type){
+//            case Picasso:
+//                try {
+//                    // TODO: 2017/1/11 可以的话这里还是要完善才好，因为又重复做了取bitmap的操作
+//                    return Picasso.with(xtionImageLoader.context).load(path)
+//                            .networkPolicy(NetworkPolicy.OFFLINE).get();//OFFLINE只从本地取
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                    return null;
+//                }
+//
+//            case ImageLoader:
+//
+//
+//            default:
+//                return null;
+//        }
+//    }
 
 
 

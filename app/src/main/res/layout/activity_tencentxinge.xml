@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:paddingLeft="10dp"
+              android:gravity="center"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/xinge_textview_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="20sp"
+            android:text="账号："/>
+
+        <EditText
+            android:id="@+id/xinge_edittext_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/xinge_textview_account"
+            android:layout_toLeftOf="@+id/xinge_button_account_bind"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:hint="请输入账号。。。"/>
+
+        <Button
+            android:id="@+id/xinge_button_account_bind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="5dp"
+            android:text="绑定"
+            />
+
+        <Button
+            android:id="@+id/xinge_button_account_unbind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/xinge_button_account_bind"
+            android:layout_below="@+id/xinge_button_account_bind"
+            android:layout_alignParentRight="true"
+            android:text="解绑"
+        />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/xinge_textview_unregister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="20sp"
+            android:text="反注册"/>
+        <Button
+            android:id="@+id/xinge_button_account_unregister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="5dp"
+            android:text="反注册"
+        />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/xinge_textview_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="20sp"
+            android:text="标签："/>
+
+        <EditText
+            android:id="@+id/xinge_edittext_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/xinge_textview_tag"
+            android:layout_toLeftOf="@+id/xinge_button_tag_bind"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:hint="请输入标签。。。"/>
+
+        <Button
+            android:id="@+id/xinge_button_tag_bind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="5dp"
+            android:text="绑定"
+        />
+
+        <Button
+            android:id="@+id/xinge_button_tag_unbind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/xinge_button_tag_bind"
+            android:layout_below="@+id/xinge_button_tag_bind"
+            android:layout_alignParentRight="true"
+            android:text="解绑"
+        />
+
+    </RelativeLayout>
+
+</LinearLayout>

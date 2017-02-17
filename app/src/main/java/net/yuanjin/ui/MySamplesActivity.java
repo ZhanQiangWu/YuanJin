@@ -1,10 +1,16 @@
 package net.yuanjin.ui;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
+
+import com.tencent.android.tpush.XGPushManager;
 
 import net.yuanjin.R;
 import net.yuanjin.mvp.login.view.LoginMVPActivity;
@@ -18,6 +24,8 @@ import net.yuanjin.mytest.recycleviewdemo.sample.MultiItemRvActivity;
 import net.yuanjin.mytest.recycleviewdemo.sample.MultiItemTypeAdapter;
 import net.yuanjin.mytest.recycleviewdemo.sample.RecyclerViewActivity2;
 import net.yuanjin.mytest.rxjavademo.RxJavaDemoActivity;
+import net.yuanjin.mytest.tencent_xinge.TencentXinGeTestActivity;
+import net.yuanjin.utils.NotificationsUtils;
 import net.yuanjin.widget.navigation.NavigationText;
 import net.yuanjin.widgetlib.photolib.Sample_Photolib;
 
@@ -49,6 +57,12 @@ public class MySamplesActivity extends BasicActivity{
         //初始化 Sample 的标题和类
         initTitleAndClass();
 
+//        Log.i("TPushReceiver", "YuanJinApplication 账号解绑");
+//        XGPushManager.registerPush(getApplicationContext(),"*");
+//        Log.i("TPushReceiver", "--------------- 反注册操作 ------------");
+//        XGPushManager.unregisterPush(getApplicationContext());
+
+
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
@@ -75,6 +89,31 @@ public class MySamplesActivity extends BasicActivity{
         });
         recyclerView.setAdapter(adapter);
 
+        if (NotificationsUtils.isNotificationEnabled(this)){
+            Toast.makeText(this,"有权限",Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(this,"没有权限",Toast.LENGTH_SHORT).show();
+            requestPermission();
+        }
+
+    }
+
+    protected void requestPermission() {
+        // TODO Auto-generated method stub
+        // 6.0以上系统才可以判断权限
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BASE) {
+            // 进入设置系统应用权限界面
+            Intent intent = new Intent(Settings.ACTION_SETTINGS);
+            startActivity(intent);
+            return;
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {// 运行系统在5.x环境使用
+            // 进入设置系统应用权限界面
+            Intent intent = new Intent(Settings.ACTION_SETTINGS);
+            startActivity(intent);
+            return;
+        }
+        return;
     }
 
     private void initTitleAndClass() {
@@ -87,6 +126,7 @@ public class MySamplesActivity extends BasicActivity{
         sampleDatas.add(new SampleItem("PicassoSampleActivity",PicassoSampleActivity.class));
         sampleDatas.add(new SampleItem("XtionImageLoaderDemo", XtionImageLoaderDemo.class));
         sampleDatas.add(new SampleItem("Sample_Photolib", Sample_Photolib.class));
+        sampleDatas.add(new SampleItem(TencentXinGeTestActivity.class.getSimpleName(),TencentXinGeTestActivity.class));
     }
 
     private void initNavigation() {
