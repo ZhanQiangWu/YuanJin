@@ -63,7 +63,7 @@ public class BasicActivity extends AppCompatActivity{
         actionBar.show();
     }
 
-    private NavigationText getDefaultNavigation(){
+    protected NavigationText getDefaultNavigation(){
         if (navigation==null){
             navigation = new NavigationText(this);
         }

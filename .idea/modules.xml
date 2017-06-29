@@ -3,9 +3,14 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/YuanJin.iml" filepath="$PROJECT_DIR$/YuanJin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/YuanJin.iml" filepath="$PROJECT_DIR$/YuanJin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/yuanjin-common/yuanjin-common.iml" filepath="$PROJECT_DIR$/yuanjin-common/yuanjin-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yuanjin-common/yuanjin-common.iml" filepath="$PROJECT_DIR$/yuanjin-common/yuanjin-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/yuanjin-ormlib/yuanjin-ormlib.iml" filepath="$PROJECT_DIR$/yuanjin-ormlib/yuanjin-ormlib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yuanjin-ormlib/yuanjin-ormlib.iml" filepath="$PROJECT_DIR$/yuanjin-ormlib/yuanjin-ormlib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yuanjin-widgetlib/yuanjin-widgetlib.iml" filepath="$PROJECT_DIR$/yuanjin-widgetlib/yuanjin-widgetlib.iml" />
       <module fileurl="file://$PROJECT_DIR$/yuanjin-widgetlib/yuanjin-widgetlib.iml" filepath="$PROJECT_DIR$/yuanjin-widgetlib/yuanjin-widgetlib.iml" />
     </modules>
   </component>

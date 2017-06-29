@@ -14,6 +14,7 @@ import com.tencent.android.tpush.XGPushManager;
 
 import net.yuanjin.R;
 import net.yuanjin.mvp.login.view.LoginMVPActivity;
+import net.yuanjin.mytest.customwidget.paint_canvas.PaintCanvasActivity;
 import net.yuanjin.mytest.picassodemo.PicassoSampleActivity;
 import net.yuanjin.mytest.picassodemo.imageloader.XtionImageLoaderDemo;
 import net.yuanjin.mytest.recycleviewdemo.DividerItemDecoration;
@@ -89,12 +90,12 @@ public class MySamplesActivity extends BasicActivity{
         });
         recyclerView.setAdapter(adapter);
 
-        if (NotificationsUtils.isNotificationEnabled(this)){
-            Toast.makeText(this,"有权限",Toast.LENGTH_SHORT).show();
-        }else {
-            Toast.makeText(this,"没有权限",Toast.LENGTH_SHORT).show();
-            requestPermission();
-        }
+//        if (NotificationsUtils.isNotificationEnabled(this)){
+//            Toast.makeText(this,"有权限",Toast.LENGTH_SHORT).show();
+//        }else {
+//            Toast.makeText(this,"没有权限",Toast.LENGTH_SHORT).show();
+//            requestPermission();
+//        }
 
     }
 
@@ -127,6 +128,7 @@ public class MySamplesActivity extends BasicActivity{
         sampleDatas.add(new SampleItem("XtionImageLoaderDemo", XtionImageLoaderDemo.class));
         sampleDatas.add(new SampleItem("Sample_Photolib", Sample_Photolib.class));
         sampleDatas.add(new SampleItem(TencentXinGeTestActivity.class.getSimpleName(),TencentXinGeTestActivity.class));
+        sampleDatas.add(new SampleItem(PaintCanvasActivity.class.getSimpleName(),PaintCanvasActivity.class));
     }
 
     private void initNavigation() {

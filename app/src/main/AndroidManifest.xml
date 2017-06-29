@@ -59,6 +59,7 @@
         <activity android:name=".mytest.picassodemo.imageloader.XtionImageLoaderDemo"/>
         <activity android:name=".widgetlib.photolib.Sample_Photolib"/>
         <activity android:name=".mytest.tencent_xinge.TencentXinGeTestActivity"/>
+        <activity android:name=".mytest.customwidget.paint_canvas.PaintCanvasActivity"/>
 
 
         <!-- 【必须】 (2.30及以上版新增)展示通知的activity -->
