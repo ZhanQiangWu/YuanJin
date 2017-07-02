@@ -1,19 +1,29 @@
+import xtion.ApiContainer
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    def globalConfiguration = rootProject.extensions.getByName("ext");// getRootProject().getExtensions().getByName("ext");
+    //编译环境的集合
+    def apiContainer = new ApiContainer();
+    //默认测试环境
+    def defaultApi = apiContainer.AliUkeRELEASE
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
     defaultConfig {
-        applicationId "net.yuanjin"
-        minSdkVersion 15
-        targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        applicationId defaultApi.appId
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+
+        buildConfigField("String","API_HOST","\"$defaultApi.apiHost\"")
+        buildConfigField("String","Tencent","\"http://tencent.com\"")
     }
-    buildTypes {
-        release {
-            minifyEnabled false
+
+    buildTypes {//构建的类型方式
+        release {//release方式，一般这种是定义为正式包渠道
+            minifyEnabled false //编译时是否混淆的开关
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -26,12 +36,12 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(include: ['*.jar'], dir: 'libs') //编译的文件树
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.4.0'
+    testCompile 'junit:junit:4.12' //测试项目需要引用的
+    compile 'com.android.support:appcompat-v7:23.4.0' //正常项目需要引用的
     compile 'com.android.support:recyclerview-v7:23.2.1'
     compile 'jp.wasabeef:recyclerview-animators:2.2.5'
     compile 'io.reactivex:rxjava:1.0.14'

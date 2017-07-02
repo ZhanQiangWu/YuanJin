@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.tencent.android.tpush.XGPushManager;
 
+import net.yuanjin.BuildConfig;
 import net.yuanjin.R;
 import net.yuanjin.mvp.login.view.LoginMVPActivity;
 import net.yuanjin.mytest.customwidget.paint_canvas.PaintCanvasActivity;
@@ -52,7 +53,6 @@ public class MySamplesActivity extends BasicActivity{
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_recyclerview);
-
         initNavigation();
 
         //初始化 Sample 的标题和类

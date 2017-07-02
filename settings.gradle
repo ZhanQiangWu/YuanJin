@@ -1,1 +1,1 @@
-include ':app', ':yuanjin-ormlib', ':yuanjin-common', ':yuanjin-widgetlib'
+include ':app', ':yuanjin-ormlib', ':yuanjin-common', ':yuanjin-widgetlib','buildSrc'
