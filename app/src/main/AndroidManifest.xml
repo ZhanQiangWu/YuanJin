@@ -26,7 +26,6 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BATTERY_STATS" />
-    <uses-permission android:name="android.permission.STATUS_BAR" />
 
 
 
@@ -60,6 +59,7 @@
         <activity android:name=".widgetlib.photolib.Sample_Photolib"/>
         <activity android:name=".mytest.tencent_xinge.TencentXinGeTestActivity"/>
         <activity android:name=".mytest.customwidget.paint_canvas.PaintCanvasActivity"/>
+        <activity android:name=".mytest.ConnectWithJS.JSActivity"/>
 
 
         <!-- 【必须】 (2.30及以上版新增)展示通知的activity -->

@@ -6,15 +6,11 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
-import com.tencent.android.tpush.XGPushManager;
-
-import net.yuanjin.BuildConfig;
 import net.yuanjin.R;
 import net.yuanjin.mvp.login.view.LoginMVPActivity;
+import net.yuanjin.mytest.ConnectWithJS.JSActivity;
 import net.yuanjin.mytest.customwidget.paint_canvas.PaintCanvasActivity;
 import net.yuanjin.mytest.picassodemo.PicassoSampleActivity;
 import net.yuanjin.mytest.picassodemo.imageloader.XtionImageLoaderDemo;
@@ -27,7 +23,6 @@ import net.yuanjin.mytest.recycleviewdemo.sample.MultiItemTypeAdapter;
 import net.yuanjin.mytest.recycleviewdemo.sample.RecyclerViewActivity2;
 import net.yuanjin.mytest.rxjavademo.RxJavaDemoActivity;
 import net.yuanjin.mytest.tencent_xinge.TencentXinGeTestActivity;
-import net.yuanjin.utils.NotificationsUtils;
 import net.yuanjin.widget.navigation.NavigationText;
 import net.yuanjin.widgetlib.photolib.Sample_Photolib;
 
@@ -118,17 +113,31 @@ public class MySamplesActivity extends BasicActivity{
     }
 
     private void initTitleAndClass() {
+        Class[] classArray = new Class[]{LoginMVPActivity.class,RecyclerViewActivity.class,
+                MultiItemRvActivity.class,RecyclerViewActivity2.class,
+                RxJavaDemoActivity.class,PicassoSampleActivity.class,
+                XtionImageLoaderDemo.class,Sample_Photolib.class,
+                TencentXinGeTestActivity.class,PaintCanvasActivity.class,
+                JSActivity.class
+        };
+
         sampleDatas = new ArrayList<SampleItem>();
-        sampleDatas.add(new SampleItem("MVP", LoginMVPActivity.class));
-        sampleDatas.add(new SampleItem("RecyclerView", RecyclerViewActivity.class));
-        sampleDatas.add(new SampleItem("MultitemRvActivity", MultiItemRvActivity.class));
-        sampleDatas.add(new SampleItem("RecyclerViewActivity", RecyclerViewActivity2.class));
-        sampleDatas.add(new SampleItem("RxJavaActivity", RxJavaDemoActivity.class));
-        sampleDatas.add(new SampleItem("PicassoSampleActivity",PicassoSampleActivity.class));
-        sampleDatas.add(new SampleItem("XtionImageLoaderDemo", XtionImageLoaderDemo.class));
-        sampleDatas.add(new SampleItem("Sample_Photolib", Sample_Photolib.class));
-        sampleDatas.add(new SampleItem(TencentXinGeTestActivity.class.getSimpleName(),TencentXinGeTestActivity.class));
-        sampleDatas.add(new SampleItem(PaintCanvasActivity.class.getSimpleName(),PaintCanvasActivity.class));
+
+        for (Class c : classArray) {
+            sampleDatas.add(new SampleItem(c.getSimpleName(), c));
+        }
+
+//        sampleDatas.add(new SampleItem("MVP", LoginMVPActivity.class));
+//        sampleDatas.add(new SampleItem("RecyclerView", RecyclerViewActivity.class));
+//        sampleDatas.add(new SampleItem("MultitemRvActivity", MultiItemRvActivity.class));
+//        sampleDatas.add(new SampleItem("RecyclerViewActivity", RecyclerViewActivity2.class));
+//        sampleDatas.add(new SampleItem("RxJavaActivity", RxJavaDemoActivity.class));
+//        sampleDatas.add(new SampleItem("PicassoSampleActivity",PicassoSampleActivity.class));
+//        sampleDatas.add(new SampleItem("XtionImageLoaderDemo", XtionImageLoaderDemo.class));
+//        sampleDatas.add(new SampleItem("Sample_Photolib", Sample_Photolib.class));
+//        sampleDatas.add(new SampleItem(TencentXinGeTestActivity.class.getSimpleName(),TencentXinGeTestActivity.class));
+//        sampleDatas.add(new SampleItem(PaintCanvasActivity.class.getSimpleName(),PaintCanvasActivity.class));
+//        sampleDatas.add(new SampleItem(JSActivity.class.getSimpleName(),JSActivity.class));
     }
 
     private void initNavigation() {
