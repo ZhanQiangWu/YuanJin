@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import net.yuanjin.R;
 import net.yuanjin.ui.BasicActivity;
+import net.yuanjin.utils.JSEngine;
 import net.yuanjin.utils.UKJSEngine;
 
 import org.mozilla.javascript.Context;
@@ -42,12 +43,23 @@ public class JSActivity extends BasicActivity{
 
 
 
-        UKJSEngine ukjsEngine = new UKJSEngine();
-        ukjsEngine.runScript(testjs,"",new String[]{});
+        UKJSEngine ukjsEngine = new UKJSEngine(null);
+//        ukjsEngine.runScript(testjs);
         //ukjsEngine.getAllFunctions();
 //        ukjsEngine.runScript(testjs,"",new String[]{});
 
+        JSEngine jsEngine = new JSEngine();
+        jsEngine.runScript(testjs);
+
+
     }
+
+    private String testjs ="var val = getValue('testKey');" +
+                           "setValue('setKey',val);" +
+            "var test = getObjectValue('objectKey');" +
+            "setValue('testvalue',test.name);";
+
+
 
     public static class ArrayTest extends ScriptableObject {
         @JSFunction
@@ -62,13 +74,14 @@ public class JSActivity extends BasicActivity{
         }
     }
 
-    private static final String testjs =
+    private static final String testjs2 =
             //" var price = getValue('guypbx'); var num = getValue('fgnpkr');  var result;"
             //+" if(price >100 ){ result = \"price more than 100\"; }else{ result = price* num; }"
             //+"getTableRows('tab');"
-            "var rowValue = getRowValue('tab',0);"
+            //"var rowValue = showObjectValue('tab',0);"
+            "app.setValue('aa','bb');"
             //+"var rowValue = [1,2,3];"
-            + "var length = rowValue[0];"
+            //+ "var length = rowValue[0];"
             //+" if(rowValue.length >0 ){ result = \"length have item\"; }else{ result = \"length = 0 \"; }"
             //+ "setValue('ijcldg',price * num); "
             //+ "setValue('ijcldg',result); "
