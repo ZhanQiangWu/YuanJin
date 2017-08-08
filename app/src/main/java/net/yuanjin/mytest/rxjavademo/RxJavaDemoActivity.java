@@ -18,6 +18,8 @@ import rx.functions.Action1;
 
 /**
  *  Created by zhan on 2016/12/21.
+ *  参考资料：
+ *  1、给 Android 开发者的 RxJava 详解 http://gank.io/post/560e15be2dca930e00da1083
  */
 
 public class RxJavaDemoActivity extends BasicActivity{
@@ -30,7 +32,63 @@ public class RxJavaDemoActivity extends BasicActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rxjavamain);
 
-        test();
+        //test();
+        test1();
+
+    }
+
+    private void test1() {
+        //观察者
+        Observer<String> observer = new    Observer<String>() {
+            @Override
+            public void onCompleted() {
+                Log.d(tag, "Completed!");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d(tag, "Error!");
+            }
+
+            @Override
+            public void onNext(String s) {
+                Log.d(tag, "Item: " + s);
+            }
+        };
+        //观察者
+        Subscriber<String> subscriber = new Subscriber<String>() {
+
+            @Override
+            public void onCompleted() {
+                Log.i("mytest","onCompleted");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.i("mytest","onError");
+            }
+
+            @Override
+            public void onNext(String s) {
+                Log.i("mytest","onNext");
+            }
+        };
+
+        //被观察者
+        Observable observable = Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                subscriber.onNext("hello");
+                subscriber.onNext("Hi");
+                subscriber.onNext("Aloha");
+                subscriber.onCompleted();
+            }
+        });
+
+        //以下两个操作等效
+
+        Observable observable1 = Observable.just("Hello", "Hi", "Aloha");
+
 
     }
 
