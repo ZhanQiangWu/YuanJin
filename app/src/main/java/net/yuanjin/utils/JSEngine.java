@@ -1,12 +1,17 @@
 package net.yuanjin.utils;
 
-import android.util.Log;
-import android.widget.Toast;
+import android.text.TextUtils;
 
 import com.google.gson.Gson;
 
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.lang.reflect.Method;
 
 /**
  *  JS解析封装
@@ -19,37 +24,15 @@ public class JSEngine {
 
     public JSEngine(){
         this.clazz = JSEngine.class;
-        initJSStr();//初始化js语句
+        allFunctions = String.format(getAllFunctions(), clazz.getName());//生成js语法
     }
 
-    private void initJSStr(){
-        /**
-         * 在此处可以看到 javaContext、javaLoader的应用，
-         * 基本使用原理应该是利用类名、类加载器和上下文去获取JSEngine的类和方法
-         * 注意method的输入参数类型与本地方法的对应
-         */
-        allFunctions =
-                " var ScriptAPI = java.lang.Class.forName(\"" + JSEngine.class.getName() + "\", true, javaLoader);\n" +
-                        " var methodGetValue=  ScriptAPI.getMethod(\"getValue\", [java.lang.String]);\n" +
-                        " function getValue(key) {\n" +
-                        "       return  methodGetValue.invoke(javaContext,key);\n" +
-                        " }\n" +
-                        " var methodSetValue=ScriptAPI.getMethod(\"setValue\",[java.lang.Object,java.lang.Object]);\n" +
-                        " function setValue(key,value) {\n" +
-                        "       methodSetValue.invoke(javaContext,key,value);\n" +
-                        " }\n"+
-                        " var methodGetObjectValue=ScriptAPI.getMethod(\"getObjectValue\",[java.lang.Object]);\n" +
-                        " function getObjectValue(key) {\n" +
-                        "       var retStr = methodGetObjectValue.invoke(javaContext,key);\n" +
-                        "       var ret = {};" +
-                        "       eval('ret='+retStr);" +
-                        "       return ret;" +
-                        " }\n";
-    }
+    @JSAnnotation
+    public void designateNodes(String keyStr, String nodePath, Boolean includeSubNode) {
+        boolean b = includeSubNode;
+        if (keyStr == null){
 
-    public String getObjectValue(Object keyStr){
-        System.out.println("JSEngine output - getObjectValue : " + keyStr.toString());
-        return new Gson().toJson(new TestObject("小明","广州"));
+        }
     }
 
     class TestObject{
@@ -63,16 +46,24 @@ public class JSEngine {
     }
 
     /**
+     * 本地方法 - 返回本地类对象
+     * @param keyStr
+     * @return
+     */
+    @JSAnnotation(returnObject = true)
+    public String getObjectValue(Object keyStr){
+        System.out.println("JSEngine output - getObjectValue : " + keyStr.toString());
+        return new Gson().toJson(new TestObject("小明","广州"));
+    }
+
+    /**
      * 本地java方法
      * @param keyStr
      * @param o
      */
+    @JSAnnotation
     public void setValue(Object keyStr, Object o) {
         System.out.println("JSEngine output - setValue : " + keyStr.toString() + " ------> " + o.toString());
-        //Log.i(this.getClass().getSimpleName(),keyStr.toString() + " ------> " + o.toString());
-//        if (ukjsEngineListener != null){
-//            ukjsEngineListener.setValue(keyStr,o);
-//        }
     }
 
     /**
@@ -80,13 +71,12 @@ public class JSEngine {
      * @param keyStr
      * @return
      */
+    @JSAnnotation
     public String getValue(String keyStr) {
         System.out.println("JSEngine output - getValue : " + keyStr.toString() );
-//        if (ukjsEngineListener != null){
-//            return ukjsEngineListener.getValue(keyStr);
-//        }
         return "获取到值了";
     }
+
 
     /**
      * 执行JS
@@ -107,4 +97,65 @@ public class JSEngine {
             org.mozilla.javascript.Context.exit();
         }
     }
+
+    /**
+     * 通过注解自动生成js方法语句
+     */
+    private String getAllFunctions(){
+        String funcStr =  " var ScriptAPI = java.lang.Class.forName(\"%s\", true, javaLoader);\n" ;
+        Class cls = this.getClass();
+        for (Method method: cls.getDeclaredMethods()){
+            JSAnnotation an = method.getAnnotation(JSAnnotation.class);
+            if (an == null ) continue;
+            String functionName = method.getName();
+
+            String paramsTypeString  ="";//获取function的参数类型
+            String paramsNameString = "";//获取function的参数名称
+            String paramsNameInvokeString = "";
+            Class [] parmTypeArray = method.getParameterTypes();
+            if (parmTypeArray != null && parmTypeArray.length > 0){
+                String[] parmStrArray = new String[parmTypeArray.length];
+                String[] parmNameArray = new String[parmTypeArray.length];
+                for (int i=0;i < parmTypeArray.length; i++){
+                    parmStrArray[i] = parmTypeArray[i].getName();
+                    parmNameArray[i] = "param" + i ;
+                }
+                paramsTypeString = String.format(",[%s]", TextUtils.join(",",parmStrArray));
+                paramsNameString = TextUtils.join(",",parmNameArray);
+                paramsNameInvokeString = "," + paramsNameString;
+            }
+
+            Class returnType = method.getReturnType();
+            String returnStr = returnType.getSimpleName().equals("void") ? "" : "return";//是否有返回值
+
+            String methodStr = String.format(" var method_%s = ScriptAPI.getMethod(\"%s\"%s);\n",functionName,functionName,paramsTypeString);
+            String functionStr = "";
+            if (an.returnObject()){//返回对象
+                functionStr = String.format(
+                        " function %s(%s){\n" +
+                                "    var retStr = method_%s.invoke(javaContext%s);\n" +
+                                "    var ret = {} ;\n" +
+                                "    eval('ret='+retStr);\n" +
+                                "    return ret;\n" +
+                                " }\n"  ,functionName,paramsNameString,functionName,paramsNameInvokeString );
+            }else {//非返回对象
+                functionStr = String.format(
+                        " function %s(%s){\n" +
+                                "    %s method_%s.invoke(javaContext%s);\n" +
+                                " }\n",functionName,paramsNameString,returnStr,functionName,paramsNameInvokeString );
+            }
+            funcStr = funcStr + methodStr + functionStr;
+        }
+        return funcStr;
+    }
+
+    /**
+     * 注解
+     */
+    @Target(value = ElementType.METHOD)
+    @Retention(value = RetentionPolicy.RUNTIME)
+    public @interface JSAnnotation {
+        boolean returnObject() default false;//是否返回对象
+    }
+
 }

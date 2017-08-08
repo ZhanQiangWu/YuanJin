@@ -41,7 +41,18 @@ public class JSActivity extends BasicActivity{
         map.put("Ta","20");
         map.put("Tb","100");
 
-
+        ////
+        String ids = "13,12,11";
+        String[] ms = ids.split(",");
+        ms.toString();
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i< ms.length;i++){
+            if (i == ms.length -1){
+                stringBuilder.append("'"+ms[i]+"'");
+            }else {
+                stringBuilder.append("'"+ms[i]+"'" + ",");
+            }
+        }
 
         UKJSEngine ukjsEngine = new UKJSEngine(null);
 //        ukjsEngine.runScript(testjs);
@@ -54,10 +65,8 @@ public class JSActivity extends BasicActivity{
 
     }
 
-    private String testjs ="var val = getValue('testKey');" +
-                           "setValue('setKey',val);" +
-            "var test = getObjectValue('objectKey');" +
-            "setValue('testvalue',test.name);";
+    private String testjs ="var include = true;" +
+            "designateNodes('aa','bb',false);" ;
 
 
 
