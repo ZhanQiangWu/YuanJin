@@ -76,18 +76,16 @@ public class RxJavaDemoActivity extends BasicActivity{
 
         //被观察者
         Observable observable = Observable.create(new Observable.OnSubscribe<String>() {
+
             @Override
             public void call(Subscriber<? super String> subscriber) {
-                subscriber.onNext("hello");
+                subscriber.onNext("Hello");
                 subscriber.onNext("Hi");
-                subscriber.onNext("Aloha");
-                subscriber.onCompleted();
+                subscriber.onNext("See You");
             }
         });
 
-        //以下两个操作等效
-
-        Observable observable1 = Observable.just("Hello", "Hi", "Aloha");
+        observable.subscribe(observer);
 
 
     }
