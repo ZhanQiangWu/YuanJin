@@ -12,9 +12,13 @@ import net.yuanjin.ui.BasicActivity;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action;
 import rx.functions.Action0;
 import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.NewThreadScheduler;
+import rx.schedulers.Schedulers;
 
 /**
  *  Created by zhan on 2016/12/21.
@@ -32,9 +36,55 @@ public class RxJavaDemoActivity extends BasicActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rxjavamain);
 
-        //test();
-        test1();
+        test3();
 
+    }
+
+    /**
+     * 由 id 取得图片并显示
+     */
+    private void test3(){
+        final int drawableRes = R.drawable.picasso_drawable;
+        imageView = (ImageView) findViewById(R.id.imageview_rxjava);
+        Observable.create(new Observable.OnSubscribe<Drawable>() {
+            @Override
+            public void call(Subscriber<? super Drawable> subscriber) {
+                Drawable drawable = getResources().getDrawable(drawableRes);
+                subscriber.onNext(drawable);
+                subscriber.onCompleted();
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+          .subscribe(new Observer<Drawable>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Toast.makeText(RxJavaDemoActivity.this, "Error!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNext(Drawable drawable) {
+                imageView.setImageDrawable(drawable);
+            }
+        });
+    }
+
+    /**
+     * 打印字符串数组
+     */
+    private void test2(){
+        String[] names = new String[]{"aa","ss","dd","ff"};
+        Observable<String> observable = Observable.from(names);
+        observable.subscribe(new Action1<String>() {
+            @Override
+            public void call(String s) {
+                Log.d(tag,s);
+            }
+        });
     }
 
     private void test1() {
@@ -82,12 +132,27 @@ public class RxJavaDemoActivity extends BasicActivity{
                 subscriber.onNext("Hello");
                 subscriber.onNext("Hi");
                 subscriber.onNext("See You");
+                subscriber.onCompleted();
             }
         });
 
-        observable.subscribe(observer);
+        //observable.subscribe(observer);
 
+        Action1<String> onNextAction = new Action1<String>() {
+            @Override
+            public void call(String string) {
+                Log.d(tag,string);
+            }
+        };
+        //observable.subscribe(onNextAction);
 
+        Action1<Throwable> onErrorAction = new Action1<Throwable>() {
+            @Override
+            public void call(Throwable throwable) {
+            }
+        };
+
+        observable.subscribe(onNextAction,onErrorAction);
     }
 
     public void test(){
