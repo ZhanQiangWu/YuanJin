@@ -3,6 +3,7 @@ package net.yuanjin.mytest.rxjavademo;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ import rx.functions.Action;
 import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.functions.Func1;
+import rx.observers.Subscribers;
 import rx.schedulers.NewThreadScheduler;
 import rx.schedulers.Schedulers;
 
@@ -39,7 +41,20 @@ public class RxJavaDemoActivity extends BasicActivity{
 
         imageView = (ImageView) findViewById(R.id.imageview_rxjava);
 
-        test5();
+        test4();
+
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    Thread.sleep(2000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                imageView.setVisibility(View.VISIBLE);
+//                //Toast.makeText(RxJavaDemoActivity.this,"11111111",Toast.LENGTH_LONG);
+//            }
+//        }).start();
 
     }
 
@@ -88,41 +103,43 @@ public class RxJavaDemoActivity extends BasicActivity{
      * 变换
      */
     private void test4() {
+        Log.i("test0",Thread.currentThread().getName().toString() + " ,id = "+Thread.currentThread().getId());
         Observable.create(new Observable.OnSubscribe<Integer>() {
             @Override
             public void call(Subscriber<? super Integer> subscriber) {
                 subscriber.onNext(R.drawable.picasso_drawable);
+                Log.i("test1",Thread.currentThread().getName().toString() + " ,id = "+Thread.currentThread().getId());
             }
         })
-                .map(new Func1<Integer, Drawable>() {
-                    @Override
-                    public Drawable call(Integer integer) {
-                        Drawable drawable = getResources().getDrawable(integer);
-                        return drawable;
-                    }
-                })
-//                .subscribe(new Action1<Drawable>() {
-//                    @Override
-//                    public void call(Drawable drawable) {
-//                        imageView.setImageDrawable(drawable);
-//                    }
-//                });
-                .subscribe(new Subscriber<Drawable>() {
-                    @Override
-                    public void onCompleted() {
+                .observeOn(AndroidSchedulers.mainThread())
+        .map(new Func1<Integer, Drawable>() {
+            @Override
+            public Drawable call(Integer integer) {
+                Drawable drawable = getResources().getDrawable(integer);
+                Log.i("test2",Thread.currentThread().getName().toString() + " ,id = "+Thread.currentThread().getId());
+                return drawable;
+            }
+        })
+        .subscribeOn(Schedulers.newThread())
+                .observeOn(Schedulers.newThread())
+        .subscribe(new Subscriber<Drawable>() {
+            @Override
+            public void onCompleted() {
 
-                    }
+            }
 
-                    @Override
-                    public void onError(Throwable e) {
+            @Override
+            public void onError(Throwable e) {
 
-                    }
+            }
 
-                    @Override
-                    public void onNext(Drawable drawable) {
-                        imageView.setImageDrawable(drawable);
-                    }
-                });
+            @Override
+            public void onNext(Drawable drawable) {
+                //imageView.setImageDrawable(drawable);
+                //Toast.makeText(RxJavaDemoActivity.this,"11111111",Toast.LENGTH_LONG).show();
+                Log.i("test3",Thread.currentThread().getName().toString() + " ,id = "+Thread.currentThread().getId());
+            }
+        });
     }
 
     /**
