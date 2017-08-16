@@ -30,22 +30,106 @@ public class RxJavaDemoActivity extends BasicActivity{
 
     private String tag = "mytest";
     private ImageView imageView;
+    final int drawableRes = R.drawable.picasso_drawable;
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rxjavamain);
 
-        test3();
+        imageView = (ImageView) findViewById(R.id.imageview_rxjava);
 
+        test5();
+
+    }
+
+    private void test5() {
+
+
+
+        Observable.create(new Observable.OnSubscribe<Integer>() {
+            @Override
+            public void call(Subscriber<? super Integer> subscriber) {
+                subscriber.onNext(10);
+            }
+        })
+
+
+        .map(new Func1<Integer, Integer>() {
+            @Override
+            public Integer call(Integer integer) {
+                return integer *10;
+            }
+        })
+
+
+        .map(new Func1<Integer, Integer>() {
+            @Override
+            public Integer call(Integer integer) {
+                return integer + 1;
+            }
+        })
+
+        .subscribe(new Subscriber<Integer>() {
+            @Override
+            public void onCompleted() {}
+
+            @Override
+            public void onError(Throwable e) {}
+
+            @Override
+            public void onNext(Integer integer) {
+                Toast.makeText(RxJavaDemoActivity.this,"运行结果: "+integer,Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    /**
+     * 变换
+     */
+    private void test4() {
+        Observable.create(new Observable.OnSubscribe<Integer>() {
+            @Override
+            public void call(Subscriber<? super Integer> subscriber) {
+                subscriber.onNext(R.drawable.picasso_drawable);
+            }
+        })
+                .map(new Func1<Integer, Drawable>() {
+                    @Override
+                    public Drawable call(Integer integer) {
+                        Drawable drawable = getResources().getDrawable(integer);
+                        return drawable;
+                    }
+                })
+//                .subscribe(new Action1<Drawable>() {
+//                    @Override
+//                    public void call(Drawable drawable) {
+//                        imageView.setImageDrawable(drawable);
+//                    }
+//                });
+                .subscribe(new Subscriber<Drawable>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Drawable drawable) {
+                        imageView.setImageDrawable(drawable);
+                    }
+                });
     }
 
     /**
      * 由 id 取得图片并显示
      */
     private void test3(){
-        final int drawableRes = R.drawable.picasso_drawable;
-        imageView = (ImageView) findViewById(R.id.imageview_rxjava);
+
         Observable.create(new Observable.OnSubscribe<Drawable>() {
             @Override
             public void call(Subscriber<? super Drawable> subscriber) {
@@ -54,7 +138,7 @@ public class RxJavaDemoActivity extends BasicActivity{
                 subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+          .observeOn(AndroidSchedulers.mainThread())
           .subscribe(new Observer<Drawable>() {
             @Override
             public void onCompleted() {
