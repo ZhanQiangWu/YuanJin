@@ -43,19 +43,6 @@ public class RxJavaDemoActivity extends BasicActivity{
 
         test4();
 
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    Thread.sleep(2000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//                imageView.setVisibility(View.VISIBLE);
-//                //Toast.makeText(RxJavaDemoActivity.this,"11111111",Toast.LENGTH_LONG);
-//            }
-//        }).start();
-
     }
 
     private void test5() {
@@ -107,21 +94,18 @@ public class RxJavaDemoActivity extends BasicActivity{
         Observable.create(new Observable.OnSubscribe<Integer>() {
             @Override
             public void call(Subscriber<? super Integer> subscriber) {
-                subscriber.onNext(R.drawable.picasso_drawable);
                 Log.i("test1",Thread.currentThread().getName().toString() + " ,id = "+Thread.currentThread().getId());
+                subscriber.onNext(R.drawable.picasso_drawable);
             }
         })
-                .observeOn(AndroidSchedulers.mainThread())
         .map(new Func1<Integer, Drawable>() {
             @Override
             public Drawable call(Integer integer) {
-                Drawable drawable = getResources().getDrawable(integer);
                 Log.i("test2",Thread.currentThread().getName().toString() + " ,id = "+Thread.currentThread().getId());
+                Drawable drawable = getResources().getDrawable(integer);
                 return drawable;
             }
         })
-        .subscribeOn(Schedulers.newThread())
-                .observeOn(Schedulers.newThread())
         .subscribe(new Subscriber<Drawable>() {
             @Override
             public void onCompleted() {
@@ -135,8 +119,6 @@ public class RxJavaDemoActivity extends BasicActivity{
 
             @Override
             public void onNext(Drawable drawable) {
-                //imageView.setImageDrawable(drawable);
-                //Toast.makeText(RxJavaDemoActivity.this,"11111111",Toast.LENGTH_LONG).show();
                 Log.i("test3",Thread.currentThread().getName().toString() + " ,id = "+Thread.currentThread().getId());
             }
         });
