@@ -10,6 +10,7 @@ import android.view.View;
 
 import net.yuanjin.R;
 import net.yuanjin.mvp.login.view.LoginMVPActivity;
+import net.yuanjin.mvp.simples.simple_1.MVPActivity1;
 import net.yuanjin.mytest.ConnectWithJS.JSActivity;
 import net.yuanjin.mytest.customwidget.paint_canvas.PaintCanvasActivity;
 import net.yuanjin.mytest.picassodemo.PicassoSampleActivity;
@@ -118,7 +119,7 @@ public class MySamplesActivity extends BasicActivity{
                 RxJavaDemoActivity.class,PicassoSampleActivity.class,
                 XtionImageLoaderDemo.class,Sample_Photolib.class,
                 TencentXinGeTestActivity.class,PaintCanvasActivity.class,
-                JSActivity.class
+                JSActivity.class, MVPActivity1.class
         };
 
         sampleDatas = new ArrayList<SampleItem>();
@@ -126,18 +127,6 @@ public class MySamplesActivity extends BasicActivity{
         for (Class c : classArray) {
             sampleDatas.add(new SampleItem(c.getSimpleName(), c));
         }
-
-//        sampleDatas.add(new SampleItem("MVP", LoginMVPActivity.class));
-//        sampleDatas.add(new SampleItem("RecyclerView", RecyclerViewActivity.class));
-//        sampleDatas.add(new SampleItem("MultitemRvActivity", MultiItemRvActivity.class));
-//        sampleDatas.add(new SampleItem("RecyclerViewActivity", RecyclerViewActivity2.class));
-//        sampleDatas.add(new SampleItem("RxJavaActivity", RxJavaDemoActivity.class));
-//        sampleDatas.add(new SampleItem("PicassoSampleActivity",PicassoSampleActivity.class));
-//        sampleDatas.add(new SampleItem("XtionImageLoaderDemo", XtionImageLoaderDemo.class));
-//        sampleDatas.add(new SampleItem("Sample_Photolib", Sample_Photolib.class));
-//        sampleDatas.add(new SampleItem(TencentXinGeTestActivity.class.getSimpleName(),TencentXinGeTestActivity.class));
-//        sampleDatas.add(new SampleItem(PaintCanvasActivity.class.getSimpleName(),PaintCanvasActivity.class));
-//        sampleDatas.add(new SampleItem(JSActivity.class.getSimpleName(),JSActivity.class));
     }
 
     private void initNavigation() {

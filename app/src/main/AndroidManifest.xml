@@ -60,6 +60,7 @@
         <activity android:name=".mytest.tencent_xinge.TencentXinGeTestActivity"/>
         <activity android:name=".mytest.customwidget.paint_canvas.PaintCanvasActivity"/>
         <activity android:name=".mytest.ConnectWithJS.JSActivity"/>
+        <activity android:name=".mvp.simples.simple_1.MVPActivity1"/>
 
 
         <!-- 【必须】 (2.30及以上版新增)展示通知的activity -->

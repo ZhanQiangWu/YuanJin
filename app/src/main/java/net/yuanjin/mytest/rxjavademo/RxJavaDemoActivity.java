@@ -10,6 +10,15 @@ import android.widget.Toast;
 import net.yuanjin.R;
 import net.yuanjin.ui.BasicActivity;
 
+import org.mozilla.javascript.ast.WhileLoop;
+
+import java.net.MalformedURLException;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.Executor;
+
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
@@ -41,8 +50,141 @@ public class RxJavaDemoActivity extends BasicActivity{
 
         imageView = (ImageView) findViewById(R.id.imageview_rxjava);
 
-        test4();
+        flatMapTest();
 
+    }
+
+    private void flatMapTest2() {
+        Observable.from(Arrays.asList(
+                "http://www.baidu.com/",
+                "http://www.google.com/",
+                "https://www.bing.com/"))
+                .flatMap(new Func1<String, Observable<String>>() {
+                    @Override
+                    public Observable<String> call(String s) {
+                        return createIpObservableMultiThread(s);
+                    }
+                })
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                        Log.i("mytest", "Consume Data <- " + s);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        Log.i("mytest", "throwable call()");
+                    }
+                });
+    }
+
+    // 获取ip
+    private Observable<String> createIpObservableMultiThread(final String url) {
+        return Observable
+                .create(new Observable.OnSubscribe<String>() {
+                    @Override
+                    public void call(Subscriber<? super String> subscriber) {
+                        String ip = getIPByUrl(url);
+                        Log.i("mytest", "Emit Data -> "+url + " -> " + ip + " time: " );
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        subscriber.onNext(ip);
+//                        subscriber.onCompleted();
+                    }
+                })
+                .subscribeOn(Schedulers.io());
+
+    }
+
+    private String getIPByUrl(String url) {
+        return "ip:"+url;
+    }
+
+
+    /**
+     * flatmap 使用测试
+     */
+    private void flatMapTest() {
+        final Student[]  students = new Student[]{new Student("小明1"),new Student("小花1"),new Student("小兰1")};
+        Subscriber<Student.Course> subscriber = new Subscriber<Student.Course>() {
+            @Override
+            public void onCompleted() {
+            }
+
+            @Override
+            public void onError(Throwable e) {
+            }
+
+            @Override
+            public void onNext(Student.Course course) {
+                Log.d(tag, course.getName() + " threadid:"+Thread.currentThread().getId());
+            }
+        };
+
+        Observable.from(students)
+                .flatMap(new Func1<Student, Observable<Student.Course>>() {
+                    @Override
+                    public Observable<Student.Course> call(final Student student) {
+                        try {
+                            Thread.sleep(200);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        Log.i("mytest",student.getName() + " threadid : "+ Thread.currentThread().getId());
+
+                        return Observable.from(student.getCourses()).filter(new Func1<Student.Course, Boolean>() {
+                            @Override
+                            public Boolean call(Student.Course course) {
+                                try {
+                                    Thread.sleep(200 );
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                Log.d(tag, "--分发--->" + course.getName() + " threadid:"+Thread.currentThread().getId());
+                                return true;
+                            }
+                        }).subscribeOn(AndroidSchedulers.mainThread());
+                    }
+                })
+                .subscribe(subscriber);
+
+    }
+
+    class Student {
+        private String name;
+        private List<Course> courses;
+        public Student(String name){
+            this.name = name;
+            courses = new ArrayList<>();
+            courses.add(new Course("语文_" + name));
+            courses.add(new Course("数学_" + name));
+            courses.add(new Course("英语_" + name));
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public List<Course> getCourses() {
+            return courses;
+        }
+
+        class Course{
+            private String name;
+            public Course(String name){
+                this.name = name;
+            }
+
+            public String getName() {
+                return name;
+            }
+        }
     }
 
     private void test5() {
@@ -98,28 +240,53 @@ public class RxJavaDemoActivity extends BasicActivity{
                 subscriber.onNext(R.drawable.picasso_drawable);
             }
         })
+        .observeOn(Schedulers.io()) // observeOn 设置线程为 io线程
+        .map(new Func1<Integer, Integer>() {
+            @Override
+            public Integer call(Integer integer) {
+                Log.i("test2",Thread.currentThread().getName().toString() + " ,id = "+Thread.currentThread().getId());
+                return integer;
+            }
+        })
+        .observeOn(Schedulers.newThread()) // observeOn 设置线程为 新线程
         .map(new Func1<Integer, Drawable>() {
             @Override
             public Drawable call(Integer integer) {
-                Log.i("test2",Thread.currentThread().getName().toString() + " ,id = "+Thread.currentThread().getId());
+                Log.i("test3",Thread.currentThread().getName().toString() + " ,id = "+Thread.currentThread().getId());
                 Drawable drawable = getResources().getDrawable(integer);
                 return drawable;
             }
         })
+        .doOnSubscribe(new Action0() {
+            @Override
+            public void call() {
+                Log.i("test doOnSubscribe 1",Thread.currentThread().getName().toString() + " ,id = "+Thread.currentThread().getId());
+            }
+        })
+        .subscribeOn(Schedulers.newThread()) // subscribeOn 设置线程为 新线程
+        .doOnSubscribe(new Action0() {
+            @Override
+            public void call() {
+                Log.i("test doOnSubscribe 0",Thread.currentThread().getName().toString() + " ,id = "+Thread.currentThread().getId());
+            }
+        })
+        .subscribeOn(Schedulers.io()) // subscribeOn 设置线程为 io线程
+
         .subscribe(new Subscriber<Drawable>() {
             @Override
-            public void onCompleted() {
-
-            }
+            public void onCompleted() {}
 
             @Override
-            public void onError(Throwable e) {
+            public void onError(Throwable e) {}
 
+            @Override
+            public void onStart() {
+                Log.i("test onStart",Thread.currentThread().getName().toString() + " ,id = "+Thread.currentThread().getId());
             }
 
             @Override
             public void onNext(Drawable drawable) {
-                Log.i("test3",Thread.currentThread().getName().toString() + " ,id = "+Thread.currentThread().getId());
+                Log.i("test4",Thread.currentThread().getName().toString() + " ,id = "+Thread.currentThread().getId());
             }
         });
     }
@@ -287,7 +454,7 @@ public class RxJavaDemoActivity extends BasicActivity{
 
         //以下两个操作等效
 
-        //Observable observable1 = Observable.just("Hello", "Hi", "Aloha");
+        Observable observable1 = Observable.just("Hello", "Hi", "Aloha");
         // 将会依次调用：
         // onNext("Hello");
         // onNext("Hi");
