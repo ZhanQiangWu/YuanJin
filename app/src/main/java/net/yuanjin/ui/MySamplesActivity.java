@@ -10,7 +10,7 @@ import android.view.View;
 
 import net.yuanjin.R;
 import net.yuanjin.mvp.login.view.LoginMVPActivity;
-import net.yuanjin.mvp.simples.simple_1.MVPActivity1;
+import net.yuanjin.mvp.simples.MVPActivity1;
 import net.yuanjin.mytest.ConnectWithJS.JSActivity;
 import net.yuanjin.mytest.customwidget.paint_canvas.PaintCanvasActivity;
 import net.yuanjin.mytest.picassodemo.PicassoSampleActivity;
