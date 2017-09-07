@@ -22,6 +22,7 @@ import java.util.concurrent.Executor;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action;
 import rx.functions.Action0;
@@ -105,6 +106,13 @@ public class RxJavaDemoActivity extends BasicActivity{
         return "ip:"+url;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        subscription.unsubscribe();
+    }
+
+    Subscription subscription;
 
     /**
      * flatmap 使用测试
@@ -114,24 +122,27 @@ public class RxJavaDemoActivity extends BasicActivity{
         Subscriber<Student.Course> subscriber = new Subscriber<Student.Course>() {
             @Override
             public void onCompleted() {
+                Log.i("mytest","onCompleted");
             }
 
             @Override
             public void onError(Throwable e) {
+                Log.i("mytest","onError");
             }
 
             @Override
             public void onNext(Student.Course course) {
-                Log.d(tag, course.getName() + " threadid:"+Thread.currentThread().getId());
+                Log.d(tag, "onNext" + course.getName() + " threadid:"+Thread.currentThread().getId());
             }
         };
 
-        Observable.from(students)
+         subscription = Observable.from(students)
                 .flatMap(new Func1<Student, Observable<Student.Course>>() {
                     @Override
                     public Observable<Student.Course> call(final Student student) {
+                        Log.i("mytest","开始了");
                         try {
-                            Thread.sleep(200);
+                            Thread.sleep(5000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -149,12 +160,15 @@ public class RxJavaDemoActivity extends BasicActivity{
                                 Log.d(tag, "--分发--->" + course.getName() + " threadid:"+Thread.currentThread().getId());
                                 return true;
                             }
-                        }).subscribeOn(AndroidSchedulers.mainThread());
+                        });
                     }
                 })
+                .subscribeOn(Schedulers.newThread())
                 .subscribe(subscriber);
 
     }
+
+
 
     class Student {
         private String name;
