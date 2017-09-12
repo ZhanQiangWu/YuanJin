@@ -46,7 +46,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".mvp.login.view.LoginMVPActivity"/>
+        <activity android:name=".mytest.mvp.login.view.LoginMVPActivity"/>
 
         <!-- Test Activity-->
         <activity android:name=".mytest.recycleviewdemo.RecyclerViewActivity"/>
@@ -60,7 +60,8 @@
         <activity android:name=".mytest.tencent_xinge.TencentXinGeTestActivity"/>
         <activity android:name=".mytest.customwidget.paint_canvas.PaintCanvasActivity"/>
         <activity android:name=".mytest.ConnectWithJS.JSActivity"/>
-        <activity android:name=".mvp.simples.MVPActivity1"/>
+        <activity android:name=".mytest.mvp.simples.MVPActivity1"/>
+        <activity android:name=".mytest.retrofitdemo.RetrofitDemoActivity"/>
 
 
         <!-- 【必须】 (2.30及以上版新增)展示通知的activity -->

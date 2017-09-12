@@ -1,4 +1,4 @@
-package net.yuanjin.mvp.simples.util;
+package net.yuanjin.mytest.mvp.simples.util;
 
 /**
  *  模拟http登录请求

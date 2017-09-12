@@ -1,7 +1,7 @@
-package net.yuanjin.mvp.simples.simple_1;
+package net.yuanjin.mytest.mvp.simples.simple_1;
 
-import net.yuanjin.mvp.simples.util.HttpTask;
-import net.yuanjin.mvp.simples.util.HttpUtil;
+import net.yuanjin.mytest.mvp.simples.util.HttpTask;
+import net.yuanjin.mytest.mvp.simples.util.HttpUtil;
 
 /**
  *  Created by wzq on 2017/9/7.

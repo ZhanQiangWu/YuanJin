@@ -1,11 +1,11 @@
-package net.yuanjin.mvp.login.presenter;
+package net.yuanjin.mytest.mvp.login.presenter;
 
 import android.os.Handler;
 import android.os.Looper;
 
-import net.yuanjin.mvp.login.model.IUser;
-import net.yuanjin.mvp.login.model.UserModel;
-import net.yuanjin.mvp.login.view.ILoginView;
+import net.yuanjin.mytest.mvp.login.model.IUser;
+import net.yuanjin.mytest.mvp.login.model.UserModel;
+import net.yuanjin.mytest.mvp.login.view.ILoginView;
 
 
 /**

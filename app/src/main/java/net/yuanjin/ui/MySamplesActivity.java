@@ -9,8 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import net.yuanjin.R;
-import net.yuanjin.mvp.login.view.LoginMVPActivity;
-import net.yuanjin.mvp.simples.MVPActivity1;
+import net.yuanjin.mytest.mvp.login.view.LoginMVPActivity;
+import net.yuanjin.mytest.mvp.simples.MVPActivity1;
 import net.yuanjin.mytest.ConnectWithJS.JSActivity;
 import net.yuanjin.mytest.customwidget.paint_canvas.PaintCanvasActivity;
 import net.yuanjin.mytest.picassodemo.PicassoSampleActivity;

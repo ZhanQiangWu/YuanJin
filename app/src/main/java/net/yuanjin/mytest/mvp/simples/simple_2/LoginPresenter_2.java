@@ -1,8 +1,6 @@
-package net.yuanjin.mvp.simples.simple_2;
+package net.yuanjin.mytest.mvp.simples.simple_2;
 
-import net.yuanjin.mvp.simples.simple_2.LoginModel_2;
-import net.yuanjin.mvp.simples.simple_2.LoginView_2;
-import net.yuanjin.mvp.simples.util.HttpUtil;
+import net.yuanjin.mytest.mvp.simples.util.HttpUtil;
 
 /**
  * P层

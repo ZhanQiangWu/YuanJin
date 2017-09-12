@@ -1,4 +1,4 @@
-package net.yuanjin.mvp.login.view;
+package net.yuanjin.mytest.mvp.login.view;
 
 /**
  *  Created by zhan on 2016/12/9.

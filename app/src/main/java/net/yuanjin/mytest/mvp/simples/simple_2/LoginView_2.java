@@ -1,4 +1,4 @@
-package net.yuanjin.mvp.simples.simple_2;
+package net.yuanjin.mytest.mvp.simples.simple_2;
 
 /**
  *  Created by wzq on 2017/9/7.

@@ -1,4 +1,4 @@
-package net.yuanjin.mvp.login.view;
+package net.yuanjin.mytest.mvp.login.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,8 +9,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import net.yuanjin.R;
-import net.yuanjin.mvp.login.presenter.ILoginPresenter;
-import net.yuanjin.mvp.login.presenter.LoginPresenterCompl;
+import net.yuanjin.mytest.mvp.login.presenter.ILoginPresenter;
+import net.yuanjin.mytest.mvp.login.presenter.LoginPresenterCompl;
 import net.yuanjin.ui.BasicActivity;
 
 /**

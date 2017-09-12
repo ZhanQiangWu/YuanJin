@@ -1,4 +1,4 @@
-package net.yuanjin.mvp.simples;
+package net.yuanjin.mytest.mvp.simples;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,12 +7,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import net.yuanjin.R;
-import net.yuanjin.mvp.simples.simple_1.LoginPresenter_1;
-import net.yuanjin.mvp.simples.simple_1.LoginView_1;
-import net.yuanjin.mvp.simples.simple_2.LoginPresenter_2;
-import net.yuanjin.mvp.simples.simple_2.LoginView_2;
-import net.yuanjin.mvp.simples.util.HttpTask;
-import net.yuanjin.mvp.simples.util.HttpUtil;
+import net.yuanjin.mytest.mvp.simples.simple_2.LoginPresenter_2;
+import net.yuanjin.mytest.mvp.simples.simple_2.LoginView_2;
 
 /**
  *  Created by wzq on 2017/9/5.

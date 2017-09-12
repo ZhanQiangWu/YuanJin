@@ -1,4 +1,4 @@
-package net.yuanjin.mvp.login.model;
+package net.yuanjin.mytest.mvp.login.model;
 
 /**
  *  Created by zhan on 2016/12/9.
