@@ -1,5 +1,7 @@
 package net.yuanjin.mytest.retrofitdemo;
 
+import android.util.Log;
+
 /**
  * 接收服务器返回数据Model
      作者：Carson_Ho
@@ -22,13 +24,8 @@ public class Translation {
 
     //定义 输出返回数据 的方法
     public void show() {
-        System.out.println(status);
-
-        System.out.println(content.from);
-        System.out.println(content.to);
-        System.out.println(content.vendor);
-        System.out.println(content.out);
-        System.out.println(content.errNo);
+        Log.i("mytest","输出结果： status: "+ status + " , content.from: "+ content.from + ",content.to : "+ content.to
+                +",content.vendor : "+ content.vendor + ",content.out : "+ content.out + ",content.errNo : "+ content.errNo);
     }
 
 }

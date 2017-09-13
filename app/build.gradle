@@ -79,4 +79,5 @@ dependencies {
     compile 'org.ow2.asm:asm:5.0.3'
     compile 'org.ow2.asm:asm-commons:5.0.3'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
 }
