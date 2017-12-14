@@ -62,6 +62,7 @@
         <activity android:name=".mytest.ConnectWithJS.JSActivity"/>
         <activity android:name=".mytest.mvp.simples.MVPActivity1"/>
         <activity android:name=".mytest.retrofitdemo.RetrofitDemoActivity"/>
+        <activity android:name=".mytest.viewstudy.VelocityTrackerActivity"/>
 
 
         <!-- 【必须】 (2.30及以上版新增)展示通知的activity -->

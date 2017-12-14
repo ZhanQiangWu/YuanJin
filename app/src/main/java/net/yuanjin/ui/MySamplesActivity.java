@@ -25,6 +25,7 @@ import net.yuanjin.mytest.recycleviewdemo.sample.RecyclerViewActivity2;
 import net.yuanjin.mytest.retrofitdemo.RetrofitDemoActivity;
 import net.yuanjin.mytest.rxjavademo.RxJavaDemoActivity;
 import net.yuanjin.mytest.tencent_xinge.TencentXinGeTestActivity;
+import net.yuanjin.mytest.viewstudy.VelocityTrackerActivity;
 import net.yuanjin.widget.navigation.NavigationText;
 import net.yuanjin.widgetlib.photolib.Sample_Photolib;
 
@@ -120,7 +121,7 @@ public class MySamplesActivity extends BasicActivity{
                 RxJavaDemoActivity.class,PicassoSampleActivity.class,
                 XtionImageLoaderDemo.class,Sample_Photolib.class,
                 TencentXinGeTestActivity.class,PaintCanvasActivity.class,
-                JSActivity.class, MVPActivity1.class, RetrofitDemoActivity.class
+                JSActivity.class, MVPActivity1.class, RetrofitDemoActivity.class, VelocityTrackerActivity.class
         };
 
         sampleDatas = new ArrayList<SampleItem>();
