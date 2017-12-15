@@ -12,7 +12,7 @@ import net.yuanjin.R;
 import net.yuanjin.ui.BasicActivity;
 
 /**
- * Created by zhan on 2017/12/14.
+ *  Created by zhan on 2017/12/14.
  */
 
 public class VelocityTrackerActivity extends BasicActivity {
@@ -26,6 +26,8 @@ public class VelocityTrackerActivity extends BasicActivity {
 
         setContentView(R.layout.activity_velocitytracker);
 
+        getDefaultNavigation().setTitle("VelocityTrackerActivity");
+
         touchArea = (LinearLayout) findViewById(R.id.testarea);
         touchArea.setOnTouchListener(new View.OnTouchListener() {
 
@@ -33,24 +35,23 @@ public class VelocityTrackerActivity extends BasicActivity {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                System.out.println("touch start ");
 
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
+                        System.out.println("touch ACTION_DOWN ");
                         mPointerId = event.getPointerId(0);
                         velocityTracker = VelocityTracker.obtain();
 
                         break;
 
                     case MotionEvent.ACTION_MOVE:
+                        System.out.println("touch move ");
                         velocityTracker.addMovement(event);
                         velocityTracker.computeCurrentVelocity(1000);
-//                        xVelocity = (int) velocityTracker.getXVelocity();
-//                        yVelocity = (int) velocityTracker.getYVelocity();
 
                         int xVelocity = (int) velocityTracker.getXVelocity();
                         int yVelocity = (int) velocityTracker.getYVelocity();
-                        Log.i("test","xVelocity : " + xVelocity + "   ,yVelocity: " + yVelocity);
+                        System.out.println("xVelocity : " + xVelocity + "   ,yVelocity: " + yVelocity);
                         break;
 
                     case MotionEvent.ACTION_UP:
@@ -59,9 +60,11 @@ public class VelocityTrackerActivity extends BasicActivity {
                         velocityTracker.clear();
                         velocityTracker.recycle();
                         break;
+                    default:
+                        break;
                 }
 
-                return false;
+                return true;
             }
         });
 

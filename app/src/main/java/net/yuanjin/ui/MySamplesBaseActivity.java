@@ -26,6 +26,7 @@ import net.yuanjin.mytest.retrofitdemo.RetrofitDemoActivity;
 import net.yuanjin.mytest.rxjavademo.RxJavaDemoActivity;
 import net.yuanjin.mytest.tencent_xinge.TencentXinGeTestActivity;
 import net.yuanjin.mytest.viewstudy.VelocityTrackerActivity;
+import net.yuanjin.mytest.viewstudy.ViewSamplesActivity;
 import net.yuanjin.widget.navigation.NavigationText;
 import net.yuanjin.widgetlib.photolib.Sample_Photolib;
 
@@ -37,13 +38,14 @@ import java.util.List;
  *  Created by WuZhanQiang on 2016/12/23.
  */
 
-public class MySamplesActivity extends BasicActivity{
+public class MySamplesBaseActivity extends BasicActivity{
 
     private List<SampleItem> sampleDatas;
 
     private NavigationText navigation;
     private CommonAdapter<SampleItem> adapter;
     private RecyclerView recyclerView;
+    protected List<Class> classList = new ArrayList<>();
 
 
     @Override
@@ -54,17 +56,10 @@ public class MySamplesActivity extends BasicActivity{
         initNavigation();
 
         //初始化 Sample 的标题和类
-        initTitleAndClass();
-
-//        Log.i("TPushReceiver", "YuanJinApplication 账号解绑");
-//        XGPushManager.registerPush(getApplicationContext(),"*");
-//        Log.i("TPushReceiver", "--------------- 反注册操作 ------------");
-//        XGPushManager.unregisterPush(getApplicationContext());
-
+        initSampleDatas();
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
 
         adapter = new CommonAdapter<SampleItem>(this,R.layout.item_recycleview, sampleDatas) {
@@ -78,7 +73,7 @@ public class MySamplesActivity extends BasicActivity{
         adapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                startActivity(new Intent(MySamplesActivity.this, sampleDatas.get(position).getActivity()));
+                startActivity(new Intent(MySamplesBaseActivity.this, sampleDatas.get(position).getActivity()));
             }
 
             @Override
@@ -87,13 +82,6 @@ public class MySamplesActivity extends BasicActivity{
             }
         });
         recyclerView.setAdapter(adapter);
-
-//        if (NotificationsUtils.isNotificationEnabled(this)){
-//            Toast.makeText(this,"有权限",Toast.LENGTH_SHORT).show();
-//        }else {
-//            Toast.makeText(this,"没有权限",Toast.LENGTH_SHORT).show();
-//            requestPermission();
-//        }
 
     }
 
@@ -115,20 +103,32 @@ public class MySamplesActivity extends BasicActivity{
         return;
     }
 
-    private void initTitleAndClass() {
-        Class[] classArray = new Class[]{LoginMVPActivity.class,RecyclerViewActivity.class,
-                MultiItemRvActivity.class,RecyclerViewActivity2.class,
-                RxJavaDemoActivity.class,PicassoSampleActivity.class,
-                XtionImageLoaderDemo.class,Sample_Photolib.class,
-                TencentXinGeTestActivity.class,PaintCanvasActivity.class,
-                JSActivity.class, MVPActivity1.class, RetrofitDemoActivity.class, VelocityTrackerActivity.class
-        };
+    private void initSampleDatas() {
+        initClassDatas();
 
         sampleDatas = new ArrayList<SampleItem>();
 
-        for (Class c : classArray) {
+        for (Class c : classList) {
             sampleDatas.add(new SampleItem(c.getSimpleName(), c));
         }
+    }
+
+    protected void initClassDatas() {
+        classList.add(LoginMVPActivity.class);
+        classList.add(LoginMVPActivity.class);
+        classList.add(RecyclerViewActivity.class);
+        classList.add(MultiItemRvActivity.class);
+        classList.add(RecyclerViewActivity2.class);
+        classList.add(RxJavaDemoActivity.class);
+        classList.add(PicassoSampleActivity.class);
+        classList.add(XtionImageLoaderDemo.class);
+        classList.add(Sample_Photolib.class);
+        classList.add(TencentXinGeTestActivity.class);
+        classList.add(PaintCanvasActivity.class);
+        classList.add(JSActivity.class);
+        classList.add(MVPActivity1.class);
+        classList.add(RetrofitDemoActivity.class);
+        classList.add(ViewSamplesActivity.class);
     }
 
     private void initNavigation() {
@@ -139,7 +139,7 @@ public class MySamplesActivity extends BasicActivity{
         setNavigation(navigation);
     }
 
-    class SampleItem{
+    static class SampleItem{
         String title;
         Class activity;
 
@@ -156,4 +156,5 @@ public class MySamplesActivity extends BasicActivity{
             return activity;
         }
     }
+
 }
