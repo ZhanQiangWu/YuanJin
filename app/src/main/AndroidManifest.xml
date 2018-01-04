@@ -64,6 +64,7 @@
         <activity android:name=".mytest.retrofitdemo.RetrofitDemoActivity"/>
         <activity android:name=".mytest.viewstudy.ViewSamplesActivity"/>
         <activity android:name=".mytest.viewstudy.VelocityTrackerActivity"/>
+        <activity android:name=".mytest.viewstudy.GestureDectectorActivity"/>
 
 
         <!-- 【必须】 (2.30及以上版新增)展示通知的activity -->

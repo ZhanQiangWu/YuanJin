@@ -29,6 +29,7 @@ public class VelocityTrackerActivity extends BasicActivity {
         getDefaultNavigation().setTitle("VelocityTrackerActivity");
 
         touchArea = (LinearLayout) findViewById(R.id.testarea);
+        touchArea.setClickable(true);
         touchArea.setOnTouchListener(new View.OnTouchListener() {
 
             private int mPointerId;
