@@ -22,5 +22,6 @@ public class ViewSamplesActivity extends MySamplesBaseActivity{
     protected void initClassDatas() {
         classList.add(VelocityTrackerActivity.class);
         classList.add(GestureDectectorActivity.class);
+        classList.add(ScrollerActivity.class);
     }
 }
