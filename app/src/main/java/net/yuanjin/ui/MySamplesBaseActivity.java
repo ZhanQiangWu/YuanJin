@@ -15,6 +15,7 @@ import net.yuanjin.mytest.ConnectWithJS.JSActivity;
 import net.yuanjin.mytest.customwidget.paint_canvas.PaintCanvasActivity;
 import net.yuanjin.mytest.picassodemo.PicassoSampleActivity;
 import net.yuanjin.mytest.picassodemo.imageloader.XtionImageLoaderDemo;
+import net.yuanjin.mytest.pulltorefresh.PullToRefreshTestActivity;
 import net.yuanjin.mytest.recycleviewdemo.DividerItemDecoration;
 import net.yuanjin.mytest.recycleviewdemo.RecyclerViewActivity;
 import net.yuanjin.mytest.recycleviewdemo.base.ViewHolder;
@@ -129,6 +130,7 @@ public class MySamplesBaseActivity extends BasicActivity{
         classList.add(MVPActivity1.class);
         classList.add(RetrofitDemoActivity.class);
         classList.add(ViewSamplesActivity.class);
+        classList.add(PullToRefreshTestActivity.class);
     }
 
     private void initNavigation() {
