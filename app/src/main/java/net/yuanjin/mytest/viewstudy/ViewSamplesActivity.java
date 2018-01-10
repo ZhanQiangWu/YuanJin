@@ -2,6 +2,7 @@ package net.yuanjin.mytest.viewstudy;
 
 import android.os.Bundle;
 
+import net.yuanjin.mytest.viewstudy.looppager.LoopPagerActivity;
 import net.yuanjin.ui.MySamplesBaseActivity;
 
 /**
@@ -21,5 +22,8 @@ public class ViewSamplesActivity extends MySamplesBaseActivity{
     @Override
     protected void initClassDatas() {
         classList.add(VelocityTrackerActivity.class);
+        classList.add(GestureDectectorActivity.class);
+        classList.add(ScrollerActivity.class);
+        classList.add(LoopPagerActivity.class);
     }
 }

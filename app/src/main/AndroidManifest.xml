@@ -65,7 +65,9 @@
         <activity android:name=".mytest.viewstudy.ViewSamplesActivity"/>
         <activity android:name=".mytest.viewstudy.VelocityTrackerActivity"/>
         <activity android:name=".mytest.pulltorefresh.PullToRefreshTestActivity"/>
-
+        <activity android:name=".mytest.viewstudy.GestureDectectorActivity"/>
+        <activity android:name=".mytest.viewstudy.ScrollerActivity"/>
+        <activity android:name=".mytest.viewstudy.looppager.LoopPagerActivity"/>
 
         <!-- 【必须】 (2.30及以上版新增)展示通知的activity -->
         <activity
