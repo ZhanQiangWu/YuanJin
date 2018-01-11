@@ -40,12 +40,14 @@ public class ScrollerActivity extends BasicActivity {
         scrollToBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //scrollTo 滚动的是该View 内部的内容
                 layout.scrollTo(-60, -100);
             }
         });
         scrollByBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //scrollBy 滚动的是该View 内部的内容
                 layout.scrollBy(-60, -100);
             }
         });
