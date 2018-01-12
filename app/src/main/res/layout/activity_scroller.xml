@@ -5,6 +5,27 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
+    <net.yuanjin.mytest.viewstudy.scrolltest.ScrollerLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+    >
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="This is first child view"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="This is second child view"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="This is third child view"/>
+
+    </net.yuanjin.mytest.viewstudy.scrolltest.ScrollerLayout>
 
     <Button
         android:id="@+id/scroll_to_btn"
