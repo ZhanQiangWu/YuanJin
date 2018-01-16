@@ -129,7 +129,7 @@ public class ScrollerLayout extends ViewGroup {
                 int dx = targetIndex * getWidth() - getScrollX();
                 // 第二步，调用startScroll()方法来初始化滚动数据并刷新界面
                 mScroller.startScroll(getScrollX(), 0, dx, 0);
-                invalidate();
+                invalidate();//刷新界面
                 break;
             default:
                 break;
