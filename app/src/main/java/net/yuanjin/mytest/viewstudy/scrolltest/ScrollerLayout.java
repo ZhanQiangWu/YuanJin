@@ -112,11 +112,17 @@ public class ScrollerLayout extends ViewGroup {
         switch (event.getAction()) {
             case MotionEvent.ACTION_MOVE:
                 mXMove = event.getRawX();
+                //新发生的在X轴上的位移
                 int scrolledX = (int) (mXLastMove - mXMove);
+                /**
+                 * getScrollX():在X轴上已发生的位移
+                 */
                 if (getScrollX() + scrolledX < leftBorder) {
+                    //发生的位移小于左边界则实际不移动
                     scrollTo(leftBorder, 0);
                     return true;
                 } else if (getScrollX() + getWidth() + scrolledX > rightBorder) {
+                    //向左发生的位移大于 左边界 - 一个宽度，则认为到达最左位置，此时则不再发生移动
                     scrollTo(rightBorder - getWidth(), 0);
                     return true;
                 }

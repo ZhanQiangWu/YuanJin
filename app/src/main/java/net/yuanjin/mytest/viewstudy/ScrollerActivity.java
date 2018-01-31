@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
@@ -25,6 +26,10 @@ public class ScrollerActivity extends BasicActivity {
 
     private Button scrollByBtn;
 
+    private Button layoutParamsButton;
+
+    private Button layoutParamsView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +42,9 @@ public class ScrollerActivity extends BasicActivity {
         layout = (LinearLayout) findViewById(R.id.layout);
         scrollToBtn = (Button) findViewById(R.id.scroll_to_btn);
         scrollByBtn = (Button) findViewById(R.id.scroll_by_btn);
+        layoutParamsButton = (Button) findViewById(R.id.layout_btn);
+        layoutParamsView = (Button) findViewById(R.id.layout_view);
+
         scrollToBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +60,22 @@ public class ScrollerActivity extends BasicActivity {
             }
         });
 
+        layoutParamsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewGroup.LayoutParams layoutParams = layoutParamsView.getLayoutParams();
+                layoutParams.width = layoutParams.width + 100;
+                layoutParamsView.setLayoutParams(layoutParams);
+            }
+        });
+        layoutParamsView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) layoutParamsView.getLayoutParams();
+                layoutParams.leftMargin += 100;
+                layoutParamsView.setLayoutParams(layoutParams);
+            }
+        });
     }
 
     /**
