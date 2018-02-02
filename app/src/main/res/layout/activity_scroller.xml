@@ -5,6 +5,20 @@
               android:layout_height="match_parent"
               android:background="@color/blue_crm3"
               android:orientation="vertical">
+
+    <net.yuanjin.mytest.viewstudy.scrolltest.MoveableLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="全屏拖动"/>
+
+    </net.yuanjin.mytest.viewstudy.scrolltest.MoveableLayout>
+
     <net.yuanjin.mytest.viewstudy.scrolltest.ScrollerLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
