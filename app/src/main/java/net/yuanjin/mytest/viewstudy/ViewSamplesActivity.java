@@ -25,5 +25,6 @@ public class ViewSamplesActivity extends MySamplesBaseActivity{
         classList.add(GestureDectectorActivity.class);
         classList.add(ScrollerActivity.class);
         classList.add(LoopPagerActivity.class);
+        classList.add(ViewDragHelperActivity.class);
     }
 }

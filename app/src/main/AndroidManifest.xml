@@ -68,6 +68,7 @@
         <activity android:name=".mytest.viewstudy.GestureDectectorActivity"/>
         <activity android:name=".mytest.viewstudy.ScrollerActivity"/>
         <activity android:name=".mytest.viewstudy.looppager.LoopPagerActivity"/>
+        <activity android:name=".mytest.viewstudy.ViewDragHelperActivity"/>
 
         <!-- 【必须】 (2.30及以上版新增)展示通知的activity -->
         <activity
