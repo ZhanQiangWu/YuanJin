@@ -1,7 +1,10 @@
 package net.yuanjin.mytest.viewstudy.scrolltest;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -133,9 +136,33 @@ public class ScrollerLayout extends ViewGroup {
                 // 当手指抬起时，根据当前的滚动值来判定应该滚动到哪个子控件的界面
                 int targetIndex = (getScrollX() + getWidth() / 2) / getWidth();
                 int dx = targetIndex * getWidth() - getScrollX();
+                /**
+                 * 弹性滑动方式一：通过Scroller
+                 */
                 // 第二步，调用startScroll()方法来初始化滚动数据并刷新界面
-                mScroller.startScroll(getScrollX(), 0, dx, 0);
-                invalidate();//刷新界面
+                //mScroller.startScroll(getScrollX(), 0, dx, 0);
+                //invalidate();//刷新界面
+
+                /**
+                 * 弹性滑动方式二：通过动画
+                 */
+//                final int startX = getScrollX();
+//                final int deltaX = dx;
+//                final ValueAnimator animator = ValueAnimator.ofInt(0,1).setDuration(1000);
+//                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//                    @Override
+//                    public void onAnimationUpdate(ValueAnimator animation) {
+//                        float fraction = animator.getAnimatedFraction();
+//                        ScrollerLayout.this.scrollTo((int) (startX + deltaX * fraction),ScrollerLayout.this.getScrollY());
+//                    }
+//                });
+//                animator.start();
+
+                /**
+                 * 弹性滑动方式三：通过动画
+                 * 验证未通过
+                 */
+                ObjectAnimator.ofFloat(this,"translationX",getScrollX(),dx).setDuration(100).start();
                 break;
             default:
                 break;
@@ -148,7 +175,8 @@ public class ScrollerLayout extends ViewGroup {
         // 第三步，重写computeScroll()方法，并在其内部完成平滑滚动的逻辑
         if (mScroller.computeScrollOffset()) {
             scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
-            invalidate();
+            Log.d("mytest","---------> computeScroll : getCurrX() = " + mScroller.getCurrX() + " , mScroller.getCurrY() = " + mScroller.getCurrY());
+            postInvalidate();
         }
     }
 
