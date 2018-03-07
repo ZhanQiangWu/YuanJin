@@ -146,23 +146,23 @@ public class ScrollerLayout extends ViewGroup {
                 /**
                  * 弹性滑动方式二：通过动画
                  */
-//                final int startX = getScrollX();
-//                final int deltaX = dx;
-//                final ValueAnimator animator = ValueAnimator.ofInt(0,1).setDuration(1000);
-//                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//                    @Override
-//                    public void onAnimationUpdate(ValueAnimator animation) {
-//                        float fraction = animator.getAnimatedFraction();
-//                        ScrollerLayout.this.scrollTo((int) (startX + deltaX * fraction),ScrollerLayout.this.getScrollY());
-//                    }
-//                });
-//                animator.start();
+                final int startX = getScrollX();
+                final int deltaX = dx;
+                final ValueAnimator animator = ValueAnimator.ofInt(0,1).setDuration(1000);
+                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        float fraction = animator.getAnimatedFraction();
+                        ScrollerLayout.this.scrollTo((int) (startX + deltaX * fraction),ScrollerLayout.this.getScrollY());
+                    }
+                });
+                animator.start();
 
-                /**
-                 * 弹性滑动方式三：通过动画
-                 * 验证未通过
-                 */
-                ObjectAnimator.ofFloat(this,"translationX",getScrollX(),dx).setDuration(100).start();
+//                /**
+//                 * 弹性滑动方式三：通过动画
+//                 * 验证未通过
+//                 */
+//                ObjectAnimator.ofFloat(this,"translationX",startX,dx).setDuration(100).start();
                 break;
             default:
                 break;
